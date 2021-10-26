@@ -1,41 +1,47 @@
-# サンプル（プロダクト名）
+http://nena3.xii.jp/vue-typing/
 
-[![IMAGE ALT TEXT HERE](https://jphacks.com/wp-content/uploads/2021/07/JPHACKS2021_ogp.jpg)](https://www.youtube.com/watch?v=LUPQFB4QyVo)
+# Dockerで動かす
+## 初回
+1. Dockerfileの`CMD ["npm", "run", "serve"]`をコメントアウト
+1. `docker-compose up --build`を実行
+1. 新しターミナルを開く
+1. `docker exec -it zizityp /bin/ash`を実行
+1. `npm install`を実行
+1. `npm run serve`を実行
+1. ビルドが終わったら http://localhost:8080 にアクセス
 
-## 製品概要
-### 背景(製品開発のきっかけ、課題等）
-### 製品説明（具体的な製品の説明）
-### 特長
-####1. 特長1
-####2. 特長2
-####3. 特長3
-####4. 特長4
+## 2回目以降
+__一回この工程を実行したらそれ以降は以下の手順でOK__
+1. Dockerfileの`CMD ["npm", "run", "serve"]`をコメントアウトを外す
+1. `docker-compose up --build`を実行
+1. ビルドが終わったら http://localhost:8080 にアクセス
 
-### 解決出来ること
-### 今後の展望
-### 注力したこと（こだわり等）
-* 
-* 
+# typing
 
-## 開発技術
-### 活用した技術
-#### API・データ
-* 
-* 
+## Project setup
+```
+npm install
+```
 
-#### フレームワーク・ライブラリ・モジュール
-* 
-* 
+### Compiles and hot-reloads for development
+```
+npm run serve
+```
 
-#### デバイス
-* 
-* 
+### Compiles and minifies for production
+```
+npm run build
+```
 
-### 独自技術
-#### ハッカソンで開発した独自機能・技術
-* 独自で開発したものの内容をこちらに記載してください
-* 特に力を入れた部分をファイルリンク、またはcommit_idを記載してください。
+### Run your tests
+```
+npm run test
+```
 
-#### 製品に取り入れた研究内容（データ・ソフトウェアなど）（※アカデミック部門の場合のみ提出必須）
-* 
-* 
+### Lints and fixes files
+```
+npm run lint
+```
+
+### Customize configuration
+See [Configuration Reference](https://cli.vuejs.org/config/).
