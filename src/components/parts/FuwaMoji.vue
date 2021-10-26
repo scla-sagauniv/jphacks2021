@@ -33,13 +33,14 @@
         animation-duration: 8s;
         animation-iteration-count: infinite;
         animation-timing-function: ease-out;
-        font-size: 40px;
+        font-size: 80px;
     }
     .fuwa2 {
         animation: fuwa2;
         animation-duration: 8s;
         animation-iteration-count: infinite;
         animation-timing-function: ease-out;
+        font-size: 80px;
     }
     @keyframes fuwa {
         0% {transform: translate(0, 3px) rotate(-5deg);}
