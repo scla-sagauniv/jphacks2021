@@ -5,6 +5,7 @@
         <p>Total Type: {{totalTypeCount}}</p>
         <p>Success Type: {{successTypeCount}}</p>
         <p>Accuracy: {{accuracy}}%</p>
+        <p v-for="index in $store.state.successStage" :key="index"> {{$store.state.inputStringsBase[index].displayString}} </p>
         <button @click="gameStart">Retry</button>
     </div>
 </template>
