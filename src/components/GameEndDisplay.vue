@@ -6,6 +6,27 @@
         <p>Success Type: {{successTypeCount}}</p>
         <p>Accuracy: {{accuracy}}%</p>
         <button @click="gameStart">Retry</button>
+        <p>
+        <select name="category" v-model="categorySelect" @change="categorySelect">
+          <option disabled value="">Please select one</option>
+          <option>general</option>
+          <option>business</option>
+          <option>entertainment</option>
+          <option>health</option>
+          <option>science</option>
+          <option>technology</option>
+          <option>sports</option>
+        </select>
+        </p>
+        <p>
+        <select name="PageNumber" v-model="pageNumber" @change="pageNumber">
+          <option disabled value="">Please select one</option>
+          <option>10</option>
+          <option>25</option>
+          <option>50</option>
+          <option>100</option>
+        </select>
+        </p>
     </div>
 </template>
 
@@ -36,11 +57,17 @@
     },
     methods: {
       gameStart() {
-        getNews().then((res) => {
+        getNews(this.pageNumber, this.categorySelect).then((res) => {
           this.$store.commit("initMondai", res)
           this.$emit('game-start')
         })
-      }
+      },
+      categorySelect() {
+        
+      },
+      pageNumber() {
+
+      },
     }
   }
 </script>
