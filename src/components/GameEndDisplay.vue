@@ -10,6 +10,7 @@
 </template>
 
 <script>
+  import getNews from '@/getNews'
   export default {
     name: 'GameEndDisplay',
     components: {},
@@ -35,7 +36,10 @@
     },
     methods: {
       gameStart() {
-        this.$emit('game-start')
+        getNews().then((res) => {
+          this.$store.commit("initMondai", res)
+          this.$emit('game-start')
+        })
       }
     }
   }

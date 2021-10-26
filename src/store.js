@@ -1,33 +1,32 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-import inputStrings from './inputStrings'
 import {_} from 'vue-underscore'
 
 Vue.use(Vuex)
-
-const shuffleStrings = _.shuffle(inputStrings)
 
 export default new Vuex.Store({
   state: {
     interval: 60,
     strings: [],
     displayString: '',
-    inputStrings: shuffleStrings,
-    inputStringsBase: shuffleStrings.concat(),
+    inputStrings: null,
+    inputStringsBase: null,
     missCount: 0,
     typeSuccessCount: 0,
     successStage: 0,
     isDied: false
   },
   mutations: {
+    initMondai(state, mondai_list) {
+      state.inputStrings = _.shuffle(mondai_list)
+      state.inputStringsBase = state.inputStrings.concat()
+    },
     choice(state) {
       let mondai = state.inputStrings.pop()
       if (!mondai) {
         state.inputStrings = state.inputStringsBase.concat()
         mondai = state.inputStrings.pop()
       }
-      //eslint-disable-next-line no-console
-      // console.log(state.inputStrings)
       state.displayString = mondai.displayString
       state.strings = mondai.inputString.split('')
     },

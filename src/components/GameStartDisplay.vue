@@ -9,6 +9,7 @@
 
 <script>
   import FuwaMoji from './parts/FuwaMoji'
+  import getNews from '@/getNews'
   export default {
     name: 'GameStartDisplay',
     components: {
@@ -21,7 +22,10 @@
     },
     methods: {
       gameStart() {
-        this.$emit('game-start')
+        getNews().then((res) => {
+          this.$store.commit("initMondai", res)
+          this.$emit('game-start')
+        })
       }
     }
   }
