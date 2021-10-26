@@ -1,10 +1,10 @@
 <template>
     <div class="gameDisplay">
         <h1>Game End</h1>
-        <p>Success Stages: {{successStage}}</p>
-        <p>Total Type: {{totalTypeCount}}</p>
-        <p>Success Type: {{successTypeCount}}</p>
-        <p>Accuracy: {{accuracy}}%</p>
+        <p><font size="5">Success Stages: {{successStage}}</font></p>
+        <p><font size="5">Total Type: {{totalTypeCount}}</font></p>
+        <p><font size="5">Success Type: {{successTypeCount}}</font></p>
+        <p><font size="5">Accuracy: {{accuracy}}%</font></p>
         <button @click="gameStart">Retry</button>
     </div>
 </template>
@@ -47,13 +47,14 @@
 
 <style scoped lang="scss">
     .gameDisplay {
-        width: 600px;
-        height: 400px;
-        border: 1px solid #CCC;
+        width: 1200px;
+        height: 450px;
+        border: 5px solid #CCC;
         margin: auto;
         position: relative;
     }
     h1 {
         margin-top: 70px;
+        font-size: 60px;
     }
 </style>
