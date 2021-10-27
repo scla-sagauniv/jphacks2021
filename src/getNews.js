@@ -23,28 +23,28 @@ async function getNews(){
   console.log(goo_res.json());
   console.log(json.articles[0].title);
 
-  const yahoo_API_KEY = 'dj00aiZpPU1ocVRoUjY1YWU2NyZzPWNvbnN1bWVyc2VjcmV0Jng9YjI-';
-  const yahoo_url = 'https://jlp.yahooapis.jp/FuriganaService/V2/furigana';
-  let yahoo_body = {
-    id: "1234-1",
-    jsonrpc: "2.0",
-    method: "jlp.furiganaservice.furigana",
-    params: {
-      q: json.articles[0].title,
-      grade: 1
-    }
-  }
-  let yahoo_res = await fetch(yahoo_url, {
-    method: 'POST',
-    mode: 'no-cors',
-    headers: {
-      'Content-Type':'application/json',
-      'User-Agent': `Yahoo AppID:${yahoo_API_KEY}`
-    },
-    body: JSON.stringify(yahoo_body)
-  });
+  // const yahoo_API_KEY = '';
+  // const yahoo_url = 'https://jlp.yahooapis.jp/FuriganaService/V2/furigana';
+  // let yahoo_body = {
+  //   id: "1234-1",
+  //   jsonrpc: "2.0",
+  //   method: "jlp.furiganaservice.furigana",
+  //   params: {
+  //     q: json.articles[0].title,
+  //     grade: 1
+  //   }
+  // }
+  // let yahoo_res = await fetch(yahoo_url, {
+  //   method: 'POST',
+  //   mode: 'no-cors',
+  //   headers: {
+  //     'Content-Type':'application/json',
+  //     'User-Agent': `Yahoo AppID:${yahoo_API_KEY}`
+  //   },
+  //   body: JSON.stringify(yahoo_body)
+  // });
 
-  console.log(yahoo_res.json());
+  // console.log(yahoo_res.json());
 
   for(let i = 0; i < json.articles.length; i++){
     mondai_list.push({displayString: json.articles[i].title, inputString: "aaaaaaa"});
@@ -52,3 +52,4 @@ async function getNews(){
   return mondai_list
 }
 export default getNews
+
