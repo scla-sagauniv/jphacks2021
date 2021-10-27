@@ -7,7 +7,6 @@
         <h4>カテゴリー</h4>
         <p>
         <b-form-select name="category" v-model="categorySelect" @change="categorySelect">
-          <option disabled value="">Please select one</option>
           <option>general</option>
           <option>business</option>
           <option>entertainment</option>
@@ -63,8 +62,8 @@
 
 <style scoped lang="scss">
     .gameDisplay {
-        width: 1200px;
-        height: 450px;
+        width: 1000px;
+        height: 700px;
         border: 5px solid #CCC;
         margin: auto;
         position: relative;

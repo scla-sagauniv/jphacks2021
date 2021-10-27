@@ -5,10 +5,10 @@
         <p><font size="5">Total Type: {{totalTypeCount}}</font></p>
         <p><font size="5">Success Type: {{successTypeCount}}</font></p>
         <p><font size="5">Accuracy: {{accuracy}}%</font></p>
-        <button @click="gameStart">Retry</button>
+        <br>
+        <h4>カテゴリー</h4>
         <p>
-        <select name="category" v-model="categorySelect" @change="categorySelect">
-          <option disabled value="">Please select one</option>
+        <b-form-select name="category" v-model="categorySelect" @change="categorySelect">
           <option>general</option>
           <option>business</option>
           <option>entertainment</option>
@@ -16,17 +16,19 @@
           <option>science</option>
           <option>technology</option>
           <option>sports</option>
-        </select>
+        </b-form-select>
         </p>
+        <h4>問題数</h4>
         <p>
-        <select name="PageNumber" v-model="pageNumber" @change="pageNumber">
+        <b-form-select name="PageNumber" v-model="pageNumber" @change="pageNumber">
           <option disabled value="">Please select one</option>
           <option>10</option>
           <option>25</option>
           <option>50</option>
           <option>100</option>
-        </select>
+        </b-form-select>
         </p>
+        <b-button variant="primary" @click="gameStart">Retry</b-button>
     </div>
 </template>
 
@@ -63,7 +65,6 @@
         })
       },
       categorySelect() {
-        
       },
       pageNumber() {
 
@@ -74,8 +75,8 @@
 
 <style scoped lang="scss">
     .gameDisplay {
-        width: 1200px;
-        height: 450px;
+        width: 1000px;
+        height: 700px;
         border: 5px solid #CCC;
         margin: auto;
         position: relative;
