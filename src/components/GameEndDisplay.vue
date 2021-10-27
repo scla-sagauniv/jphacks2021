@@ -1,10 +1,13 @@
 <template>
     <div class="gameDisplay">
         <h1>Game End</h1>
+        <p v-for="index in $store.state.successStage" :key="index"> {{$store.state.inputStringsBase[index].displayString}} </p>
+        <button @click="gameStart">Retry</button>
         <p><font size="5">Success Stages: {{successStage}}</font></p>
         <p><font size="5">Total Type: {{totalTypeCount}}</font></p>
         <p><font size="5">Success Type: {{successTypeCount}}</font></p>
         <p><font size="5">Accuracy: {{accuracy}}%</font></p>
+        <p v-for="index in $store.state.successStage" :key="index"> {{$store.state.inputStringsBase[index].displayString}} </p>
         <br>
         <h4>カテゴリー</h4>
         <p>
