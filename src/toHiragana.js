@@ -13,7 +13,7 @@ async function toHiragana(sent) {
 }
 
 async function postGoo(str) {
-  const goo_API_KEY = "3696cf44262a79dfedb25087966f9ac4be9792c6e7f579449a451e43ecfbd3c7";
+  const goo_API_KEY = "";
   const goo_url = "https://labs.goo.ne.jp/api/hiragana";
   let goo_body = {
     app_id: goo_API_KEY,
