@@ -2,6 +2,7 @@ module.exports = {
   baseUrl: './',
   devServer: {
     // host: news-typing-scla.herokuapp.com,
-    disableHostCheck: true
+    public: 'news-typing-scla.herokuapp.com:8080',
+    disableHostCheck: true,
   }
 }
