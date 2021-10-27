@@ -1,12 +1,37 @@
 <template>
     <div class="gameDisplay">
         <h1>Game End</h1>
-        <p>Success Stages: {{successStage}}</p>
-        <p>Total Type: {{totalTypeCount}}</p>
-        <p>Success Type: {{successTypeCount}}</p>
-        <p>Accuracy: {{accuracy}}%</p>
         <p v-for="index in $store.state.successStage" :key="index"> {{$store.state.inputStringsBase[index].displayString}} </p>
         <button @click="gameStart">Retry</button>
+        <p><font size="5">Success Stages: {{successStage}}</font></p>
+        <p><font size="5">Total Type: {{totalTypeCount}}</font></p>
+        <p><font size="5">Success Type: {{successTypeCount}}</font></p>
+        <p><font size="5">Accuracy: {{accuracy}}%</font></p>
+        <p v-for="index in $store.state.successStage" :key="index"> {{$store.state.inputStringsBase[index].displayString}} </p>
+        <br>
+        <h4>カテゴリー</h4>
+        <p>
+        <b-form-select name="category" v-model="categorySelect" @change="categorySelect">
+          <option>general</option>
+          <option>business</option>
+          <option>entertainment</option>
+          <option>health</option>
+          <option>science</option>
+          <option>technology</option>
+          <option>sports</option>
+        </b-form-select>
+        </p>
+        <h4>問題数</h4>
+        <p>
+        <b-form-select name="PageNumber" v-model="pageNumber" @change="pageNumber">
+          <option disabled value="">Please select one</option>
+          <option>10</option>
+          <option>25</option>
+          <option>50</option>
+          <option>100</option>
+        </b-form-select>
+        </p>
+        <b-button variant="primary" @click="gameStart">Retry</b-button>
     </div>
 </template>
 
@@ -37,24 +62,30 @@
     },
     methods: {
       gameStart() {
-        getNews().then((res) => {
+        getNews(this.pageNumber, this.categorySelect).then((res) => {
           this.$store.commit("initMondai", res)
           this.$emit('game-start')
         })
-      }
+      },
+      categorySelect() {
+      },
+      pageNumber() {
+
+      },
     }
   }
 </script>
 
 <style scoped lang="scss">
     .gameDisplay {
-        width: 600px;
-        height: 400px;
-        border: 1px solid #CCC;
+        width: 1000px;
+        height: 700px;
+        border: 5px solid #CCC;
         margin: auto;
         position: relative;
     }
     h1 {
         margin-top: 70px;
+        font-size: 60px;
     }
 </style>

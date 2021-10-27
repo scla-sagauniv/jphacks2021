@@ -42,9 +42,9 @@
 
 <style scoped lang="scss">
     .gameDisplay {
-        width: 600px;
-        height: 400px;
-        border: 1px solid #CCC;
+        width: 1000px;
+        height: 450px;
+        border: 5px solid #CCC;
         margin: auto;
         position: relative;
     }

@@ -5,4 +5,4 @@ ENV CHOKIDAR_USEPOLLING=true
 COPY ./package*.json ./
 RUN npm install
 
-CMD ["npm", "run", "serve"]
+# CMD ["npm", "run", "serve"]
