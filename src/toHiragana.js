@@ -3,17 +3,19 @@
 // レスポンス(大きさ2の配列)
 //  index0：平仮名に変わった日本語の部分
 //  index1：文中に含まれていた英語or数字
-//    {start_idx: その単語の元の挿入位置}
 
 async function toHiragana(sent) {
     sent = await removeSymbol(sent);
     const [jp, en] = await splitEnNum(sent);
-    const hiragana = await postGoo(jp);
+    let hiragana = await postGoo(jp);
+    for (let n = 0; n < en.length; n++) {
+        hiragana = hiragana.replace("<>", en[n]);
+    }
     return [hiragana, en];
 }
 
 async function postGoo(str) {
-  const goo_API_KEY = "";
+  const goo_API_KEY = "3696cf44262a79dfedb25087966f9ac4be9792c6e7f579449a451e43ecfbd3c7";
   const goo_url = "https://labs.goo.ne.jp/api/hiragana";
   let goo_body = {
     app_id: goo_API_KEY,
@@ -27,8 +29,9 @@ async function postGoo(str) {
     },
     body: JSON.stringify(goo_body),
   });
-  let json = await goo_res.json()
-  return json.converted;
+  let json = await goo_res.json();
+  let regexp = new RegExp(/[ ]/g );
+  return json.converted.replace(regexp, "");
 }
 
 function removeSymbol(sent) {
@@ -60,10 +63,14 @@ function splitEnNum(sent) {
     }
 
     for (let n = 0; n < idx_list.length; n++) {
-        en_sent_list.push({word: sent.substr(idx_list[n].start_idx, idx_list[n].serial), address: idx_list[n].start_idx})
-        jp_sent = jp_sent.split(en_sent_list[en_sent_list.length-1].word, 2).join('')
+        en_sent_list.push(sent.substr(idx_list[n].start_idx, idx_list[n].serial))
+        jp_sent = jp_sent.split(en_sent_list.slice(-1), 2).join('<>')
     }
     return [jp_sent, en_sent_list];
 }
+
+// function make_sent(hiragana, en_list) {
+//     for (let)
+// }
 
 export default toHiragana
