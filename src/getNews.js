@@ -10,11 +10,12 @@ async function getNews(){
     mondai_list.push({displayString: json.articles[i].title, inputString: "aaaaaaa"});
   }
   // toHiragana("「Todayの2.4限目の量子力学入門Ｔｅｓｔ、てげよだきっちゃけど。」PTAに訴えてもらおうぜ")
-  toHiragana("3月1日は日曜日で祝日、晴れの日でした")
-  .then((res) => {
-    console.log("3月1日は日曜日で祝日、晴れの日でした");
-    console.log(res);
-  })
+  // // toHiragana("3月1日は日曜日で祝日、晴れの日でした")
+  // .then((res) => {
+  //   console.log("「Todayの2.4限目の量子力学入門Ｔｅｓｔ、てげよだきっちゃけど。」PTAに訴えてもらおうぜ")
+  //   // console.log("3月1日は日曜日で祝日、晴れの日でした");
+  //   console.log(res);
+  // })
 
   return mondai_list
 }
