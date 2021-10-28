@@ -7,31 +7,33 @@ async function toHiragana(sent) {
     sent = await removeSymbol(sent);
     let full_hiragana = await postGoo(sent);
     const [jp, ennum_list] = await splitEnNum(sent);
-    let ennum_hiragana = await postGoo(ennum_list.join("<>"));
-    let ennum_list_hiragana = ennum_hiragana.split(/<>/g);
-    for (let n = 0; n < ennum_list_hiragana.length; n++) {
-        full_hiragana = full_hiragana.replace(ennum_list_hiragana[n], ennum_list[n]);
+    if (ennum_list.length != 0) {
+        let ennum_hiragana = await postGoo(ennum_list.join("<>"));
+        let ennum_list_hiragana = ennum_hiragana.split(/<>/g);
+        for (let n = 0; n < ennum_list_hiragana.length; n++) {
+            full_hiragana = full_hiragana.replace(ennum_list_hiragana[n], ennum_list[n]);
+        }
     }
     return full_hiragana;
 }
 
 async function postGoo(str) {
-  const goo_API_KEY = "";
-  const goo_url = "https://labs.goo.ne.jp/api/hiragana";
-  let goo_body = {
-    app_id: goo_API_KEY,
-    sentence: str,
-    output_type: "hiragana",
-  };
-  let goo_res = await fetch(goo_url, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(goo_body),
-  });
-  let json = await goo_res.json();
-  return json.converted.replace(/ /g, "");
+    const goo_API_KEY = "";
+    const goo_url = "https://labs.goo.ne.jp/api/hiragana";
+    let goo_body = {
+        app_id: goo_API_KEY,
+        sentence: str,
+        output_type: "hiragana",
+    };
+    let goo_res = await fetch(goo_url, {
+        method: "POST",
+        headers: {
+        "Content-Type": "application/json",
+        },
+        body: JSON.stringify(goo_body),
+    });
+    let json = await goo_res.json();
+    return json.converted.replace(/ /g, "");
 }
 
 function removeSymbol(sent) {
