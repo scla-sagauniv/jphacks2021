@@ -5,17 +5,19 @@
 //  index1：文中に含まれていた英語or数字
 
 async function toHiragana(sent) {
+    let full_hiragana = await postGoo(sent);
     sent = await removeSymbol(sent);
-    const [jp, en] = await splitEnNum(sent);
-    let hiragana = await postGoo(jp);
-    for (let n = 0; n < en.length; n++) {
-        hiragana = hiragana.replace("<>", en[n]);
+    const [jp, ennum_list] = await splitEnNum(sent);
+    let ennum_hiragana = await postGoo(ennum_list.join("<>"));
+    let ennum_list_hiragana = ennum_hiragana.split(/<>/g);
+    for (let n = 0; n < ennum_list_hiragana.length; n++) {
+        full_hiragana = full_hiragana.replace(ennum_list_hiragana[n], ennum_list[n]);
     }
-    return [hiragana, en];
+    return [full_hiragana, ennum_list_hiragana];
 }
 
 async function postGoo(str) {
-  const goo_API_KEY = "3696cf44262a79dfedb25087966f9ac4be9792c6e7f579449a451e43ecfbd3c7";
+  const goo_API_KEY = "";
   const goo_url = "https://labs.goo.ne.jp/api/hiragana";
   let goo_body = {
     app_id: goo_API_KEY,
@@ -30,23 +32,24 @@ async function postGoo(str) {
     body: JSON.stringify(goo_body),
   });
   let json = await goo_res.json();
-  let regexp = new RegExp(/[ ]/g );
-  return json.converted.replace(regexp, "");
+//   let regexp = new RegExp(/[ ]/g );
+  return json.converted.replace(/ /g, "");
 }
 
 function removeSymbol(sent) {
-    let regexp = new RegExp(/[!！"”#＃$＄%％&＆'’(（)）*＊+＋,，.．/／,：;；<＜=＝>＞?？@＠[［\\￥\]］^＾_＿`｀{｛|｜}｝~～｢「｣」]/g );
+    let regexp = new RegExp(/[!！"”#＃$＄%％&＆'’(（)）*＊+＋,，．/／,：;；<＜=＝>＞?？@＠[［\\￥\]］^＾_＿`｀{｛|｜}｝~～｢「｣」]/g );
     return sent.replace(regexp, '');
 }
 
 function splitEnNum(sent) {
     let idx_list = [], res, serial_num = 1, last_idx = -2;
     let jp_sent = sent, en_sent_list = [];
-    let regexp = new RegExp(/[a-zA-Zａ-ｚＡ-Ｚ0-9]/g );
+    let regexp = new RegExp(/[a-zA-Zａ-ｚＡ-Ｚ0-9０-９.,]/g );
     while (res = regexp.exec(sent)) {
         if (res.index == last_idx + 1) {
             last_idx = res.index;
             serial_num++;
+            console.log(last_idx)
         }
         else {
             if (serial_num > 1) {
@@ -68,9 +71,5 @@ function splitEnNum(sent) {
     }
     return [jp_sent, en_sent_list];
 }
-
-// function make_sent(hiragana, en_list) {
-//     for (let)
-// }
 
 export default toHiragana
