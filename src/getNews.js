@@ -7,14 +7,15 @@ async function getNews(){
   for(let i = 0; i < json.articles.length; i++){
     mondai_list.push({displayString: json.articles[i].title, inputString: "aaaaaaa"});
   }
+  // // デバッグ用
+  // let test = "「Todayの2.4げんめのりょうしりきがくにゅうもんＴｅｓｔ、てげよだきっちゃけど。」PTAにうったえてもらおうぜ";
+  // console.log(toRome(test, 'kunrei'));
   return mondai_list
 }
 export default getNews
 
 
-// デバッグ用
-// let test = "えいがといすとーりーでも みた あの ちゃたーふぉん。 さいしんせだいは Bluetoothたいおうだしおとなでも つかえるかも まいなすぎずもーどじゃぱん";
-// console.log(toRome(test, 'hebon'));
+
 
 
 /**
@@ -73,9 +74,11 @@ function toRome(text, mode)
       'しゃ' : { hepburn : 'sha', kunrei : 'sya' }, 'しぃ' : 'syi', 'しゅ' : { hepburn : 'shu', kunrei : 'syu' }, 'しぇ' : 'sye', 'しょ' : { hepburn : 'sho', kunrei : 'syo' },
       'ちゃ' : { hepburn : 'cha', kunrei : 'tya' }, 'ちぃ' : ['tyi'], 'ちゅ' : { hepburn : 'chu', kunrei : 'tyu' }, 'ちぇ' : ['tye'], 'ちょ' : { hepburn : 'cho', kunrei : 'tyo' },
       'てゃ' : 'tha', 'てぃ' : 'thi', 'てゅ' : 'thu', 'てぇ' : 'the', 'てょ' : 'tho',
+      'にゃ' : 'nya', 'にゅ' : 'nyu', 'にょ' : 'nyo', 
       'ひゃ' : 'hya', 'ひぃ' : 'hyi', 'ひゅ' : 'hyu', 'ひぇ' : 'hye', 'ひょ' : 'hyo',
       'ふぁ' : 'fa', 'ふぃ' : 'fi', 'ふぇ' : 'fe', 'ふぉ' : 'fo',
       'みゃ' : 'mya', 'みぃ' : 'myi', 'みゅ' : 'myu', 'みぇ' : 'mye', 'みょ' : 'myo',
+      'りゃ' : 'rya', 'りゅ' : 'ryu', 'りょ' : 'ryo', 
       'ヴぁ' : 'va', 'ヴぃ' : 'vi', 'ヴぇ' : 've', 'ヴぉ' : 'vo',
       'ぎゃ' : 'gya', 'ぎぃ' : 'gyi', 'ぎゅ' : 'gyu', 'ぎぇ' : 'gye', 'ぎょ' : 'gyo',
       'じゃ' : { hepburn : 'ja', kunrei : 'zya' }, 'じぃ' : 'zyi', 'じゅ' : { hepburn : 'ju', kunrei : 'zyu' }, 'じぇ' : 'zye', 'じょ' : { hepburn : 'jo', kunrei : 'zyo' },
