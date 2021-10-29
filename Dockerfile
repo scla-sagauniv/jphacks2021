@@ -1,9 +1,7 @@
 FROM node:10.0.0-alpine
-# FROM node:latest
 
-WORKDIR /frontend
+WORKDIR /app
 ENV CHOKIDAR_USEPOLLING=true
-COPY ./package*.json ./
-RUN npm install --no-optional
-
+COPY ./ ./
+RUN npm install
 CMD ["npm", "run", "serve"]

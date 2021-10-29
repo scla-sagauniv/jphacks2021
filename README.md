@@ -1,10 +1,5 @@
 http://nena3.xii.jp/vue-typing/
 
-# Herokuでデプロイ
-[![Deploy to Heroku](https://www.herokucdn.com/deploy/button.png)](https://heroku.com/deploy)
-
-[SCLAリポジトリ版](https://news-typing-scla.herokuapp.com/)
-
 # Dockerで動かす
 ## 初回
 1. Dockerfileの`CMD ["npm", "run", "serve"]`をコメントアウト

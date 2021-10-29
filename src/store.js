@@ -6,7 +6,7 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-    interval: 60,
+    interval: 120,
     strings: [],
     displayString: '',
     inputStrings: null,
@@ -44,7 +44,7 @@ export default new Vuex.Store({
     },
     resetAll(state) {
       state.isDied = false
-      state.interval = 60
+      state.interval = 120
       state.strings = []
       state.missCount = 0
       state.successStage = 0
