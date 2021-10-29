@@ -40,9 +40,8 @@
     data() {
         return {
           title: 'News-Typing'.split(''),
-          categorySelect: null,
+          categorySelect: 'general',
           categorySelects: [
-            { value: null, text: '---' },
             { value: 'general', text: '一般' },
             { value: 'business', text: 'ビジネス' },
             { value: 'entertainment', text: 'エンタメ' },
@@ -51,9 +50,9 @@
             { value: 'technology', text: 'テクノロジー' },
             { value: 'sports', text: 'スポーツ' },
           ],
-          pageNumber: null,
+          pageNumber: '5',
           pageNumbers: [
-            { value: null, text: '---' },
+            { value: '5', text: '5' },
             { value: '10', text: '10' },
             { value: '25', text: '25' },
             { value: '50', text: '50' },
@@ -64,7 +63,7 @@
     methods: {
       gameStart() {
         getNews(this.pageNumber, this.categorySelect).then((res) => {
-          this.$store.commit("initMondai", res)
+          this.$store.commit("initMondai", {mondai_list: res, category: this.categorySelect, page: this.pageNumber})
           this.$emit('game-start')
         })
       },

@@ -12,6 +12,7 @@ export default new Vuex.Store({
     displayString: '',
     inputStrings: null,
     inputStringsBase: null,
+    selected: {category: null, page: null},
     missCount: 0,
     typeSuccessCount: 0,
     successStage: 0,
@@ -20,9 +21,11 @@ export default new Vuex.Store({
     type_size: 100
   },
   mutations: {
-    initMondai(state, mondai_list) {
-      state.inputStrings = _.shuffle(mondai_list)
+    initMondai(state, init_param) {
+      state.inputStrings = _.shuffle(init_param.mondai_list)
       state.inputStringsBase = state.inputStrings.concat()
+      state.selected.category = init_param.category
+      state.selected.page = init_param.page
     },
     choice(state) {
       let mondai = state.inputStrings.pop()
