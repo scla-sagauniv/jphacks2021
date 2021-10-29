@@ -5,4 +5,4 @@ COPY go.sum /backend/go.sum
 WORKDIR /backend
 RUN go mod download
 COPY . /backend
-# CMD go run main.go
+CMD go run main.go
