@@ -8,6 +8,7 @@ export default new Vuex.Store({
   state: {
     interval: 60,
     strings: [],
+    mondaiString: '',
     displayString: '',
     inputStrings: null,
     inputStringsBase: null,
@@ -27,6 +28,7 @@ export default new Vuex.Store({
         state.inputStrings = state.inputStringsBase.concat()
         mondai = state.inputStrings.pop()
       }
+      state.mondaiString = mondai.mondaiString
       state.displayString = mondai.displayString
       state.strings = mondai.inputString.split('')
     },
