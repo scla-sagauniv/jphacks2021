@@ -1,32 +1,46 @@
 <template>
     <div class="gameDisplay">
         <h1>Game End</h1>
-        <p><font size="5">Success Stages: {{successStage}}</font></p>
-        <p><font size="5">Total Type: {{totalTypeCount}}</font></p>
-        <p><font size="5">Success Type: {{successTypeCount}}</font></p>
-        <p><font size="5">Accuracy: {{accuracy}}%</font></p>
-        <button @click="gameStart">Retry</button>
-        <p>
-        <select name="category" v-model="categorySelect" @change="categorySelect">
-          <option disabled value="">Please select one</option>
-          <option>general</option>
-          <option>business</option>
-          <option>entertainment</option>
-          <option>health</option>
-          <option>science</option>
-          <option>technology</option>
-          <option>sports</option>
-        </select>
-        </p>
-        <p>
-        <select name="PageNumber" v-model="pageNumber" @change="pageNumber">
-          <option disabled value="">Please select one</option>
-          <option>10</option>
-          <option>25</option>
-          <option>50</option>
-          <option>100</option>
-        </select>
-        </p>
+        <b-container>
+          <b-row align-v="center">
+            <b-col cols="8">
+              <b-form-select :select-size="6" class="title-list">
+                <option v-for="index in $store.state.successStage" :key="index" class="title-item"> {{$store.state.inputStringsBase[index].displayString}} </option>
+              </b-form-select>
+            </b-col>
+            <b-col cols="4" class="result">
+              <ul>
+                <li class="text-left"><div class="score-titles">Stages:</div>  <div class="scores">{{successStage}}</div></li>
+                <li class="text-left"><div class="score-titles">Total Type: </div><div class="scores">{{totalTypeCount}}</div></li>
+                <li class="text-left"><div class="score-titles">Success Type: </div><div class="scores">{{successTypeCount}}</div></li>
+                <li class="text-left"><div class="score-titles">Accuracy:</div> <div class="scores">{{accuracy}}%</div></li>
+              </ul>
+            </b-col>
+          </b-row>
+        </b-container>
+        <br>
+        <h3>カテゴリー</h3>
+        <b-container>
+          <b-row>
+            <b-col col lg="4"></b-col>
+            <b-col>
+              <b-form-select class="text-center" cols="8" md="auto" v-model="categorySelect" :options="categorySelects"></b-form-select>
+            </b-col>
+            <b-col col lg="4"></b-col>
+          </b-row>
+        </b-container>
+        <h3 class="mt-3">問題数</h3>
+        <b-container>
+          <b-row>
+            <b-col col lg="4"></b-col>
+            <b-col>
+              <b-form-select class="text-center" v-model="pageNumber" :options="pageNumbers"></b-form-select>
+            </b-col>
+            <b-col col lg="4"></b-col>
+          </b-row>
+        </b-container>
+        <br>
+        <b-button variant="primary" @click="gameStart">Retry</b-button>
     </div>
 </template>
 
@@ -55,6 +69,29 @@
         return Math.ceil((this.successTypeCount / this.totalTypeCount) * 100);
       }
     },
+    data() {
+        return {
+          categorySelect: null,
+          categorySelects: [
+            { value: null, text: '---' },
+            { value: 'general', text: '一般' },
+            { value: 'business', text: 'ビジネス' },
+            { value: 'entertainment', text: 'エンタメ' },
+            { value: 'health', text: '健康' },
+            { value: 'science', text: '科学' },
+            { value: 'technology', text: 'テクノロジー' },
+            { value: 'sports', text: 'スポーツ' },
+          ],
+          pageNumber: null,
+          pageNumbers: [
+            { value: null, text: '---' },
+            { value: '10', text: '10' },
+            { value: '25', text: '25' },
+            { value: '50', text: '50' },
+            { value: '100', text: '100' }
+          ]
+        }
+    },
     methods: {
       gameStart() {
         getNews(this.pageNumber, this.categorySelect).then((res) => {
@@ -63,7 +100,6 @@
         })
       },
       categorySelect() {
-        
       },
       pageNumber() {
 
@@ -74,8 +110,8 @@
 
 <style scoped lang="scss">
     .gameDisplay {
-        width: 1200px;
-        height: 450px;
+        width: 1000px;
+        height: 700px;
         border: 5px solid #CCC;
         margin: auto;
         position: relative;
@@ -84,4 +120,33 @@
         margin-top: 70px;
         font-size: 60px;
     }
+    .title-list {
+      // IE, Edge 対応
+      -ms-overflow-style: none;
+      // Firefox 対応
+      scrollbar-width: none;
+    }
+    .title-list::-webkit-scrollbar {
+        display:none;
+    }
+    .title-item {
+        margin: 5px 0;
+    }
+    ul {
+        list-style-type: none;
+    }
+    li {
+      position: relative;
+      font-size: 27px;
+      margin: 5px 0px;
+    }
+    .score-titles {
+        position: absolute;
+        left: 0;
+        top: 0;
+    }
+    .scores {
+        text-align: right;
+    }
+
 </style>

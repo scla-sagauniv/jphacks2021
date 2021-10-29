@@ -42,7 +42,7 @@
 
 <style scoped lang="scss">
     .gameDisplay {
-        width: 1200px;
+        width: 1000px;
         height: 450px;
         border: 5px solid #CCC;
         margin: auto;
