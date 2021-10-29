@@ -13,13 +13,25 @@
     },
     data() {
       return {
-        style: {
-        },
+        right: 0,
       }
     },
     computed: {
+      style(){
+        return {
+          right: this.right + 'px'
+        }
+      },
       string() {
         return this.$store.state.displayString.split('')
+      },
+      type_count() {
+        return this.$store.state.type_count
+      }
+    },
+    watch: {
+      type_count() {
+        this.right = this.$store.state.type_size * this.$store.state.type_count;
       }
     }
   }

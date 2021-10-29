@@ -1,5 +1,6 @@
 <template>
   <div id="app">
+      <span id="ruler" style="visibility:hidden;position:absolute;white-space:nowrap;"></span>
       <component v-bind:is="currentComponent" v-on:game-start="gameStart"></component>
   </div>
 </template>

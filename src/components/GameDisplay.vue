@@ -1,6 +1,7 @@
 <template>
     <div class="gameDisplay" :style="style" :class="klass">
         <time-bar></time-bar>
+        <mondai-string></mondai-string>
         <display-string></display-string>
         <strings></strings>
     </div>
@@ -9,6 +10,7 @@
 <script>
   import Strings from './parts/Strings'
   import DisplayString from './parts/DisplayString'
+  import MondaiString from './parts/MondaiString'
   import TimeBar from './parts/TimeBar'
 
   export default {
@@ -16,6 +18,7 @@
     components: {
       Strings,
       DisplayString,
+      MondaiString,
       TimeBar
     },
     data() {
@@ -42,8 +45,8 @@
 
 <style scoped lang="scss">
     .gameDisplay {
-        width: 1200px;
-        height: 450px;
+        width: 1000px;
+        height: 700px;
         border: 5px solid #CCC;
         margin: auto;
         position: relative;
