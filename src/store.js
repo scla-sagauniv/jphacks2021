@@ -14,7 +14,9 @@ export default new Vuex.Store({
     missCount: 0,
     typeSuccessCount: 0,
     successStage: 0,
-    isDied: false
+    isDied: false,
+    type_count: 0,
+    type_size: 100
   },
   mutations: {
     initMondai(state, mondai_list) {
@@ -29,15 +31,27 @@ export default new Vuex.Store({
       }
       state.displayString = mondai.displayString
       state.strings = mondai.inputString.split('')
+      //type_sizeを決める
+      //題名のpx
+      let k;
+      let wobj = document.getElementById("ruler");
+      wobj.style.fontSize = 50;
+      wobj.innerHTML = state.displayString;
+      k = wobj.offsetWidth + 1200;
+      //stringsの数
+      let s_c = state.strings.length
+      state.type_size = k / s_c;
     },
     typeMiss(state) {
       state.missCount++
     },
     typeSuccess(state) {
       state.typeSuccessCount++
+      state.type_count++
     },
     stageSuccess(state) {
       state.successStage++
+      state.type_count = 0
     },
     die(state) {
       state.isDied = true

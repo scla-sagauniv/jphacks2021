@@ -6,7 +6,7 @@ async function getNews(pageNumber, categorySelect){
   let res = await fetch(url);
   let json = await res.json();
   for(let i = 0; i < json.articles.length; i++){
-    mondai_list.push({displayString: json.articles[i].title, inputString: "aaaaaaa"});
+    mondai_list.push({displayString: json.articles[i].title, inputString: "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"});
   }
   return mondai_list
 }
