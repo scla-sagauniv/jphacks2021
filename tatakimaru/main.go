@@ -8,6 +8,7 @@ import (
 	"log"
 	"io/ioutil"
 	"encoding/json"
+	"time"
 
     "github.com/gin-gonic/contrib/cors"
 	"github.com/gin-gonic/gin"
@@ -22,12 +23,32 @@ func main() {
 	r.GET("/postgoo", postGoo)
 	port := os.Getenv("PORT")
 	r.Run(":" + port)
+	// r.Run(":8000")
 }
 
 func root(ctx *gin.Context) {
 	fmt.Println("hello")
 	ctx.Writer.WriteString("root")
 	ctx.JSON(http.StatusOK, "hello tatakimaru")
+}
+
+	
+type resNews struct {
+	Status       string `json:"status"`
+	TotalResults int    `json:"totalResults"`
+	Articles     []struct {
+		Source struct {
+			ID   string `json:"id"`
+			Name string `json:"name"`
+		} `json:"source"`
+		Author      interface{} `json:"author"`
+		Title       string      `json:"title"`
+		Description string      `json:"description"`
+		URL         string      `json:"url"`
+		URLToImage  string      `json:"urlToImage"`
+		PublishedAt time.Time   `json:"publishedAt"`
+		Content     interface{} `json:"content"`
+	} `json:"articles"`
 }
 
 func getNews(ctx *gin.Context) {
@@ -43,8 +64,18 @@ func getNews(ctx *gin.Context) {
 	defer res.Body.Close()
     byteArray, _ := ioutil.ReadAll(res.Body)
     jsonBytes := ([]byte)(byteArray)
-	fmt.Println(pages)
-	ctx.JSON(http.StatusOK, string(jsonBytes))
+	res_data := new(resNews)
+	if err := json.Unmarshal(jsonBytes, res_data); err != nil {
+		fmt.Println("JSON Unmarshal error:", err)
+		return
+	}
+	ctx.JSON(http.StatusOK, res_data)
+}
+
+type resGoo struct {
+	Converted  string `json:"converted"`
+	OutputType string `json:"output_type"`
+	RequestID  string `json:"request_id"`
 }
 
 func postGoo(ctx *gin.Context) {
@@ -73,5 +104,10 @@ func postGoo(ctx *gin.Context) {
     defer resp.Body.Close()
     byteArray, _ := ioutil.ReadAll(resp.Body)
     jsonBytes := ([]byte)(byteArray)
-    ctx.JSON(http.StatusOK, string(jsonBytes))
+	res_data := new(resGoo)
+	if err := json.Unmarshal(jsonBytes, res_data); err != nil {
+		fmt.Println("JSON Unmarshal error:", err)
+		return
+	}
+    ctx.JSON(http.StatusOK, res_data)
 }
