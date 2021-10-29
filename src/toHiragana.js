@@ -18,20 +18,8 @@ async function toHiragana(sent) {
 }
 
 async function postGoo(str) {
-    const goo_API_KEY = "3696cf44262a79dfedb25087966f9ac4be9792c6e7f579449a451e43ecfbd3c7";
-    const goo_url = "https://labs.goo.ne.jp/api/hiragana";
-    let goo_body = {
-        app_id: goo_API_KEY,
-        sentence: str,
-        output_type: "hiragana",
-    };
-    let goo_res = await fetch(goo_url, {
-        method: "POST",
-        headers: {
-        "Content-Type": "application/json",
-        },
-        body: JSON.stringify(goo_body),
-    });
+    const goo_url = `https://tatakimaru.herokuapp.com/postgoo?sent=${str}`;
+    let goo_res = await fetch(goo_url);
     let json = await goo_res.json();
     return json.converted.replace(/ /g, "");
 }
