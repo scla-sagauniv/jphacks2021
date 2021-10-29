@@ -19,7 +19,8 @@ func main() {
 	r.GET("/", root)
 	r.GET("/getnews", getNews)
 	r.GET("/postgoo", postGoo)
-	r.Run(":8000")
+	port := os.Getenv("PORT")
+	router.Run(":" + port)
 }
 
 func root(ctx *gin.Context) {
