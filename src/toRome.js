@@ -15,7 +15,6 @@
      console.log("invalid mode:" + mode);
      return 0;
    }
-   result = onlyAlphabet(result)
    result = full2half(result)
    return result;
  }
@@ -197,11 +196,6 @@
    return result;
  };
 
-
- function onlyAlphabet(sent) {
-    sent = sent.replace(/[^a-zA-Zａ-ｚＡ-Ｚ0-9０-９]/g, "")
-    return sent
- }
 
  function full2half(str) {
     return str.replace(/[Ａ-Ｚａ-ｚ０-９ 　]/g, function(s) {

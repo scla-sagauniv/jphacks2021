@@ -14,6 +14,7 @@ async function toHiragana(sent) {
             full_hiragana = full_hiragana.replace(ennum_list_hiragana[n], ennum_list[n]);
         }
     }
+    full_hiragana = await onlyHiragana(full_hiragana)
     return full_hiragana;
 }
 
@@ -22,6 +23,10 @@ async function postGoo(str) {
     let goo_res = await fetch(goo_url);
     let json = await goo_res.json();
     return json.converted.replace(/ /g, "");
+}
+
+async function onlyHiragana(sent) {
+    return sent.replace(/[^\u{3041}-\u{3093}0-9０-９ー]/mug, "")
 }
 
 function removeSymbol(sent) {
