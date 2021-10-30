@@ -1,47 +1,46 @@
-http://nena3.xii.jp/vue-typing/
+# サンプル（プロダクト名）
 
-# Dockerで動かす
-## 初回
-1. Dockerfileの`CMD ["npm", "run", "serve"]`をコメントアウト
-1. `docker-compose up --build`を実行
-1. 新しターミナルを開く
-1. `docker exec -it zizityp /bin/ash`を実行
-1. `npm install`を実行
-1. `npm run serve`を実行
-1. ビルドが終わったら http://localhost:8080 にアクセス
+[![IMAGE ALT TEXT HERE](https://jphacks.com/wp-content/uploads/2021/07/JPHACKS2021_ogp.jpg)](https://www.youtube.com/watch?v=LUPQFB4QyVo)
 
-## 2回目以降
-__一回この工程を実行したらそれ以降は以下の手順でOK__
-1. Dockerfileの`CMD ["npm", "run", "serve"]`をコメントアウトを外す
-1. `docker-compose up --build`を実行
-1. ビルドが終わったら http://localhost:8080 にアクセス
+## 製品概要
+### デプロイ先
+https://news-typing-scla.herokuapp.com/
+### 背景(製品開発のきっかけ、課題等）
+- 情報教育が発展し，将来子供がパソコンに触れる機会が増える
+- ニュースを見ない若者の増加
+### 製品説明（具体的な製品の説明）
+ニュースの見出しをタイピングするゲーム<br>
+タイピングから世の中を知るきっかけになることを目的としたサービス
+### 特長
+#### 1. スキルの上達と社会について目を向けるきっかけ作りが同時にできる
+#### 2. 途中まで読んだマンガの続きを読みたくなるように，ニュースに興味が出る仕組み
 
-# typing
+### 解決出来ること
+ニュースに対する興味の向上
+タイピングスキルの向上
+### 今後の展望
+シェア機能やスコアの記録を追加することでゲーム性を向上し，より多くのニュース記事が目に付くようにしたい．
+### 注力したこと（こだわり等）
+* 特殊な記号引くことで快適なタイピング環境を提供
 
-## Project setup
-```
-npm install
-```
+## 開発技術
+### 活用した技術
+#### API・データ
+* gooラボAPI:ひらがな化API
+* NewsAPI
 
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
+#### フレームワーク・ライブラリ・モジュール
+* vue
+* bootstrap
+* Heroku
+* GO
+* Docker
 
-### Compiles and minifies for production
-```
-npm run build
-```
+#### デバイス
+* パソコン
 
-### Run your tests
-```
-npm run test
-```
-
-### Lints and fixes files
-```
-npm run lint
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+### 独自技術
+#### ハッカソンで開発した独自機能・技術
+* GOを利用したAPIサーバ
+* ニュースを所得して成形するAPI
+* 特に力を入れた部分をファイルリンク、またはcommit_idを記載してください。
