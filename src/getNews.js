@@ -12,7 +12,7 @@ async function getNews(pageNumber, categorySelect){
   for(let i = 0; i < json.articles.length; i++){
     res = await toHiragana(json.articles[i].title)
     for_input = await toRome(res, 'kunrei')
-    mondai_list.push({mondaiString: json.articles[i].title, displayString: res, inputString: for_input});
+    mondai_list.push({mondaiString: json.articles[i].title, mondaiUrl: json.articles[i].url, displayString: res, inputString: for_input});
   }
   return mondai_list
 }
