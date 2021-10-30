@@ -6,7 +6,7 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-    interval: 120,
+    interval: 90,
     strings: [],
     mondaiString: '',
     displayString: '',
