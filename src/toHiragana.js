@@ -19,7 +19,7 @@ async function toHiragana(sent) {
 }
 
 async function postGoo(str) {
-    const goo_url = `https://tatakimaru.herokuapp.com/postgoo?sent=${str}`;
+    const goo_url = `http://localhost:8000/postgoo?sent=${str}`;
     let goo_res = await fetch(goo_url);
     let json = await goo_res.json();
     return json.converted.replace(/ /g, "");

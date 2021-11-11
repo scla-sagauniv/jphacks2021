@@ -3,7 +3,7 @@ import toRome from "./toRome"
 async function getNews(pageNumber, categorySelect){
 
   let mondai_list = [], for_input;
-  const url = `https://tatakimaru.herokuapp.com/getnews?pageSize=${pageNumber}&category=${categorySelect}`;
+  const url = `http://localhost:8000/getnews?pageSize=${pageNumber}&category=${categorySelect}`;
 
   let res = await fetch(url);
   let json = await res.json();

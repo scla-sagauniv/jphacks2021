@@ -39,7 +39,7 @@
     },
     data() {
         return {
-          title: 'News-Typing'.split(''),
+          title: 'N-Typing'.split(''),
           categorySelect: 'general',
           categorySelects: [
             { value: 'general', text: '一般' },

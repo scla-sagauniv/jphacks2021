@@ -2,7 +2,7 @@ package main
 
 import (
 	"fmt"
-	"os"
+	// "os"
 	"bytes"
 	"net/http"
 	"log"
@@ -21,9 +21,9 @@ func main() {
 	r.GET("/", root)
 	r.GET("/getnews", getNews)
 	r.GET("/postgoo", postGoo)
-	port := os.Getenv("PORT")
-	r.Run(":" + port)
-	// r.Run(":8000")
+	// port := os.Getenv("PORT")
+	// r.Run(":" + port)
+	r.Run(":8000")
 }
 
 func root(ctx *gin.Context) {
