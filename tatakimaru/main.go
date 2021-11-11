@@ -22,6 +22,7 @@ func main() {
 	r.GET("/getnews", getNews)
 	r.GET("/postgoo", postGoo)
 	port := os.Getenv("PORT")
+	fmt.Println("PORT:", port)
 	r.Run(":" + port)
 	// r.Run(":8000")
 }
