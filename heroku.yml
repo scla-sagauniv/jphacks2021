@@ -1,4 +1,4 @@
 build:
   docker:
     web: Dockerfile
-    web: tatakimaru/Dockerfile
+    backend: tatakimaru/Dockerfile
