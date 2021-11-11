@@ -27,7 +27,7 @@ func main() {
 }
 
 func root(ctx *gin.Context) {
-	fmt.Println("hello")
+	fmt.Println("hello!")
 	ctx.Writer.WriteString("root")
 	ctx.JSON(http.StatusOK, "hello tatakimaru")
 }
