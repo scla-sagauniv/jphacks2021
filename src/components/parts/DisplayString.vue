@@ -23,7 +23,7 @@
         }
       },
       string() {
-        return this.$store.state.displayString.split('')
+        return this.$store.state.displayString.substr(0, 12).split('')
       },
       type_count() {
         return this.$store.state.type_count

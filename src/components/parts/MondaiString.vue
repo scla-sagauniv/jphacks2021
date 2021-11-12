@@ -1,22 +1,32 @@
 <template>
-    <div :style="style">
-        【お題のニュースタイトル】</br>
-        {{$store.state.mondaiString}}
+    <div>
+        <p>【お題のニュースタイトル】</p>
+        <p><span class="done">{{string[0]}}</span>{{string[1]}}</p>
     </div>
 </template>
 
 <script>
   export default {
-    name: 'DisplayString',
+    name: 'mondaiString',
     data() {
       return {
-        style: {
-        },
+        fade_f: true,
       }
     },
     computed: {
       string() {
-        return this.$store.state.displayString.split('')
+        if (this.$store.state.displayString.length == 0) {
+          this.stageClear();
+        }
+        this.fade_f = !this.fade_f;
+        return this.$store.state.mondaiString;
+      }
+    },
+    methods: {
+      stageClear() {
+        // choice next word
+        this.$store.commit('choice');
+        this.$store.commit('stageSuccess');
       }
     }
   }
@@ -31,6 +41,22 @@
         position: relative;
         text-align: left;
         display: table;
+    }
+    .done {
+      color: red;
+    }
+
+    .fade-enter-active {
+      animation: fade 5s;
+    }
+    .fade-leave-active {
+      animation: fade 5s reverse;
+    }
+    @keyframes fade { /*animation-nameで設定した値を書く*/
+        0% {opacity: 0} /*アニメーション開始時は不透明度0%*/
+        40% {opacity: 1}
+        60% {opacity: 1;}
+        100% {opacity: 0} /*アニメーション終了時は不透明度100%*/
     }
 
 </style>

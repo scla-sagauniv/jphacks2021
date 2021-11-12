@@ -5,7 +5,13 @@
           <b-row align-v="center">
             <b-col cols="8">
               <b-form-select :select-size="6" class="title-list">
-                <option v-for="index in $store.state.successStage" :key="index" class="title-item" v-on:click="toNews($store.state.inputStringsBase[index].mondaiUrl)"> {{$store.state.inputStringsBase[index].mondaiString}} </option>
+                <option v-for="index in $store.state.successStage" 
+                :key="index" class="title-item" 
+                v-on:click="toNews($store.state.inputStringsBase[index-1].mondaiUrl)"> 
+                  <span style="border-bottom: solid 1px blue;">
+                    {{$store.state.inputStringsBase[index-1].mondaiString}}
+                  </span>
+                </option>
               </b-form-select>
             </b-col>
             <b-col cols="4" class="result">
@@ -106,7 +112,7 @@
       },
       toNews(url){
         window.open(url, '_blank')
-      }
+      },
     }
   }
 </script>
@@ -134,6 +140,7 @@
     }
     .title-item {
         margin: 5px 0;
+        color: blue;
     }
     ul {
         list-style-type: none;
