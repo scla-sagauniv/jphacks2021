@@ -3,7 +3,21 @@
         <time-bar></time-bar>
         <mondai-string></mondai-string>
         <display-string></display-string>
-        <strings></strings>
+        <!-- <strings></strings> -->
+        <b-container fluid class="bv-example-row">
+          <b-row>
+            <b-col>
+              <b-form-input
+              md="10"
+              offset-md="1"
+              v-model="input"
+              placeholder="入力してEnter"
+              @keypress.prevent.enter.exact="enable_submit"
+              @keyup.prevent.enter.exact="submit">
+              </b-form-input>
+            </b-col>
+          </b-row>
+        </b-container>
     </div>
 </template>
 
@@ -24,7 +38,8 @@
     data() {
       return {
         style: {},
-        klass: []
+        klass: [],
+        input: "",
       }
     },
     computed: {
@@ -39,6 +54,20 @@
           this.klass = []
         }, 200)
       }
+    },
+    mounted() {
+      this.$store.commit('choice')
+    },
+    methods: {
+      enable_submit() {
+        this.can_submit_search = true
+      },
+      submit() {
+        if (!this.can_submit_search) return
+        this.$store.commit("check", this.input);
+        this.input = '';
+        return this.can_submit_search = false;
+      },
     }
   }
 </script>
@@ -56,7 +85,6 @@
         animation: damage;
         animation-duration: .2s;
     }
-
     @keyframes damage {
         0% {
             background : #CCC;
@@ -65,5 +93,11 @@
         100% {
             background : #FFF;
         }
+    }
+
+    .input{
+      width: 700px;
+      height:50px;
+      margin: auto;
     }
 </style>

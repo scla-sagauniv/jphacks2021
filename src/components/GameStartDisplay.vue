@@ -73,6 +73,12 @@
       pageNumber() {
 
       },
+      window:onload = function() {  
+        const url = 'https://tatakimaru.herokuapp.com/';
+        fetch(url).then((res) => {
+          alert(res.status)
+        })
+      },
     }
   }
 </script>

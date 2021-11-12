@@ -23,13 +23,13 @@ export default {
     }
   },
   computed: {
-    isDied() {
-        return this.$store.state.isDied
+    isGameClear() {
+        return this.$store.state.isGameClear
     }
   },
   watch: {
-    isDied() {
-      if (!this.isDied) {
+    isGameClear() {
+      if (!this.isGameClear) {
         return
       }
       this.currentComponent = GameEndDisplay
