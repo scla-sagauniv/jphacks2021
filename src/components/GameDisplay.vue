@@ -55,9 +55,6 @@
         }, 200)
       }
     },
-    mounted() {
-      this.$store.commit('choice')
-    },
     methods: {
       enable_submit() {
         this.can_submit_search = true
@@ -65,6 +62,7 @@
       submit() {
         if (!this.can_submit_search) return
         this.$store.commit("check", this.input);
+        this.$store.commit("CountUpEnter");
         this.input = '';
         return this.can_submit_search = false;
       },
