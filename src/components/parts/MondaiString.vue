@@ -41,6 +41,7 @@
         position: relative;
         text-align: left;
         display: table;
+        user-select: none;
     }
     .done {
       color: red;
