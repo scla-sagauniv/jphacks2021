@@ -1,7 +1,7 @@
 FROM node:10.0.0-alpine
 
-WORKDIR /frontend
+WORKDIR /app
 ENV CHOKIDAR_USEPOLLING=true
-COPY ./ ./
+# COPY ./ ./
 RUN npm install
 CMD ["npm", "run", "serve"]
