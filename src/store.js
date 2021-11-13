@@ -16,6 +16,7 @@ export default new Vuex.Store({
     missCount: 0,
     typeSuccessCount: 0,
     successStage: 0,
+    onEnter: 0,
     isGameClear: false,
     type_count: 0,
     type_size: 100
@@ -63,6 +64,10 @@ export default new Vuex.Store({
       state.displayString = state.displayString.join('');
       state.mondaiString[0] += state.mondaiString[1].substr(0, n);
       state.mondaiString[1] = state.mondaiString[1].substr(n);
+      state.onEnter++;
+    },
+    CountUpEnter(state) {
+      state.onEnter++;
     },
     typeMiss(state) {
       state.missCount++

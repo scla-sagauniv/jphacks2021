@@ -1,7 +1,10 @@
 <template>
-    <div>
+    <div class="mondai-box">
         <p>【お題のニュースタイトル】</p>
-        <p><span class="done">{{string[0]}}</span>{{string[1]}}</p>
+        <span class="done">{{string[0]}}</span>
+        <transition appear name="fade">
+          <span class="doing" v-if="fade_f">{{string[1]}}</span>
+        </transition>
     </div>
 </template>
 
@@ -11,15 +14,24 @@
     data() {
       return {
         fade_f: true,
+        string: this.$store.state.mondaiString,
       }
     },
     computed: {
-      string() {
+      on_enter() {
         if (this.$store.state.displayString.length == 0) {
-          this.stageClear();
+          return this.stageClear();
         }
+        return this.$store.state.onEnter;
+      }
+    },
+    watch: {
+      on_enter() {
+        this.string = this.$store.state.mondaiString;
         this.fade_f = !this.fade_f;
-        return this.$store.state.mondaiString;
+        this.$nextTick(function() {
+          this.fade_f = !this.fade_f;
+        })
       }
     },
     methods: {
@@ -27,7 +39,7 @@
         // choice next word
         this.$store.commit('choice');
         this.$store.commit('stageSuccess');
-      }
+      },
     }
   }
 </script>
@@ -42,21 +54,28 @@
         text-align: left;
         display: table;
     }
+
+    .mondai-box {
+      width: 80%;
+      height: 30%;
+    }
+
     .done {
       color: red;
     }
+    .doing {
+      opacity: 0;
+    }
 
     .fade-enter-active {
-      animation: fade 5s;
+      animation: fade 3s;
     }
     .fade-leave-active {
-      animation: fade 5s reverse;
+      opacity: 0;
     }
     @keyframes fade { /*animation-nameで設定した値を書く*/
-        0% {opacity: 0} /*アニメーション開始時は不透明度0%*/
+        0% {opacity: 1} /*アニメーション開始時は不透明度0%*/
         40% {opacity: 1}
-        60% {opacity: 1;}
         100% {opacity: 0} /*アニメーション終了時は不透明度100%*/
     }
-
 </style>
