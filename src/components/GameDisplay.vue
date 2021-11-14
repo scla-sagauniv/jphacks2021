@@ -1,6 +1,6 @@
 <template>
     <div class="gameDisplay" :style="style" :class="klass">
-        <time-bar></time-bar>
+        <progress-bar></progress-bar>
         <mondai-string></mondai-string>
         <display-string></display-string>
         <!-- <strings></strings> -->
@@ -25,7 +25,7 @@
   import Strings from './parts/Strings'
   import DisplayString from './parts/DisplayString'
   import MondaiString from './parts/MondaiString'
-  import TimeBar from './parts/TimeBar'
+  import ProgressBar from './parts/ProgressBar'
 
   export default {
     name: 'GameDisplay',
@@ -33,7 +33,7 @@
       Strings,
       DisplayString,
       MondaiString,
-      TimeBar
+      ProgressBar
     },
     data() {
       return {

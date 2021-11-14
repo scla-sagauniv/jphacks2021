@@ -1,6 +1,6 @@
 <template>
     <div class="mondai-box">
-        <p>【お題のニュースタイトル】</p>
+        <p>【{{$store.state.successStage}}問目のニュースタイトル】</p>
         <span class="done">{{string[0]}}</span>
         <transition appear name="fade">
           <span class="doing" v-if="fade_f">{{string[1]}}</span>
