@@ -2,6 +2,8 @@
     <div>
         <p>【お題のニュースタイトル】</p>
         <p><span class="done">{{string[0]}}</span>{{string[1]}}</p>
+        <!-- 動画のリンクだと切れます -->
+        <img :src="returnImageUrl" class="img-size">
     </div>
 </template>
 
@@ -20,6 +22,9 @@
         }
         this.fade_f = !this.fade_f;
         return this.$store.state.mondaiString;
+      },
+      returnImageUrl() {
+        return this.$store.state.mondaiImage;
       }
     },
     methods: {
@@ -41,6 +46,10 @@
         position: relative;
         text-align: left;
         display: table;
+    }
+    .img-size {
+        width: 700px;
+        height: 300px;
     }
     .done {
       color: red;
