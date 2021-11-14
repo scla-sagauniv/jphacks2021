@@ -5,9 +5,9 @@
           <b-row align-v="center">
             <b-col cols="8">
               <b-form-select :select-size="6" class="title-list">
-                <option v-for="index in $store.state.successStage" 
+                <option v-for="index in parseInt(pageNumber)" 
                 :key="index" class="title-item" 
-                v-on:click="toNews($store.state.inputStringsBase[index-1].mondaiUrl)"> 
+                v-on:click="toNews($store.state.inputStringsBase[index].mondaiUrl)"> 
                   <span style="border-bottom: solid 1px blue;">
                     {{$store.state.inputStringsBase[index-1].mondaiString}}
                   </span>
@@ -100,8 +100,8 @@
     methods: {
       gameStart() {
         getNews(this.pageNumber, this.categorySelect).then((res) => {
-          this.$store.commit("initMondai", res)
           this.$store.commit("initMondai", {mondai_list: res, category: this.categorySelect, page: this.pageNumber})
+          this.$store.commit("resetAll")
           this.$emit('game-start')
         })
       },
