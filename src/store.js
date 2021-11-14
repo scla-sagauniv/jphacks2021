@@ -20,7 +20,7 @@ export default new Vuex.Store({
     isGameClear: false,
     type_count: 0,
     type_size: 100,
-    twitter_share: "https://twitter.com/intent/tweet"
+    twitter_share_url: "https://twitter.com/intent/tweet?"
   },
   mutations: {
     initMondai(state, init_param) {
@@ -92,6 +92,19 @@ export default new Vuex.Store({
     },
     decrementInterval(state, decrement) {
       state.interval -= decrement
+    },
+    twitter_url_create(state){
+      //ここを変更することで，twitterのシェアの最初に表示するやつを変える
+      let count = state.missCount + state.typeSuccessCount
+      let text = "=== N-Typing 結果 ===\n"
+      text += "クリアステージ数:" + state.successStage + "\n"
+      text += "タイプ回数:" + count + "\n"
+      text += "タイプ成功数:" + state.typeSuccessCount + "\n"
+      text += "タイプ成功率:" + Math.ceil((state.typeSuccessCount / count) * 100) + "\%\n"
+      text += "サイトURL:" + "dummy\n"
+      text += "すごい!!!"
+      text += "#N_Typing #SCLA"
+      state.twitter_share_url = state.twitter_share_url + "text=" + encodeURIComponent(text);
     }
   }
 })
