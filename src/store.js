@@ -19,7 +19,8 @@ export default new Vuex.Store({
     onEnter: 0,
     isGameClear: false,
     type_count: 0,
-    type_size: 100
+    type_size: 100,
+    twitter_share: "https://twitter.com/intent/tweet"
   },
   mutations: {
     initMondai(state, init_param) {
