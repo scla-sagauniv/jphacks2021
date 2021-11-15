@@ -7,7 +7,7 @@
               <b-form-select :select-size="6" class="title-list">
                 <option v-for="index in parseInt(pageNumber)" 
                 :key="index" class="title-item" 
-                v-on:click="toNews($store.state.inputStringsBase[index].mondaiUrl)"> 
+                v-on:click="toNews($store.state.inputStringsBase[index-1].mondaiUrl)"> 
                   <span style="border-bottom: solid 1px blue;">
                     {{$store.state.inputStringsBase[index-1].mondaiString}}
                   </span>
@@ -16,10 +16,11 @@
             </b-col>
             <b-col cols="4" class="result">
               <ul>
-                <li class="text-left"><div class="score-titles">Stages:</div>  <div class="scores">{{successStage}}</div></li>
+                <li class="text-left"><div class="score-titles">Time:</div>  <div class="scores">{{totalTime}}</div></li>
+                <li class="text-left"><div class="score-titles">Total Submit:</div>  <div class="scores">{{totalSubmit}}</div></li>
+                <li class="text-left"><div class="score-titles">Miss Submit:</div>  <div class="scores">{{missSubmit}}</div></li>
                 <li class="text-left"><div class="score-titles">Total Type: </div><div class="scores">{{totalTypeCount}}</div></li>
-                <li class="text-left"><div class="score-titles">Success Type: </div><div class="scores">{{successTypeCount}}</div></li>
-                <li class="text-left"><div class="score-titles">Accuracy:</div> <div class="scores">{{accuracy}}%</div></li>
+                <li class="text-left"><div class="score-titles -result">Score: </div><div class="scores -result">{{resultScore}}</div></li>
               </ul>
             </b-col>
           </b-row>
@@ -57,7 +58,7 @@
     components: {},
     computed: {
       successStage() {
-        return this.$store.state.successStage
+        return this.pageNumber
       },
       totalTypeCount() {
         return this.successTypeCount + this.missTypeCount
@@ -94,8 +95,15 @@
             { value: '25', text: '25' },
             { value: '50', text: '50' },
             { value: '100', text: '100' }
-          ]
+          ],
+          totalSubmit: this.$store.state.onEnter,
+          missSubmit: this.$store.state.missEnter,
+          totalTime: Math.floor((this.$store.state.endTime - this.$store.state.startTime) / 1000), // ミリ秒なので秒に変換して
+          resultScore: 0,
         }
+    },
+    mounted() {
+      this.resultScore = this.totalTypeCount * 100 - (this.totalTime * 5 + this.totalSubmit * 5 + this.missSubmit * 10)
     },
     methods: {
       gameStart() {
@@ -158,5 +166,7 @@
     .scores {
         text-align: right;
     }
-
+    .-result {
+        color: red
+    }
 </style>

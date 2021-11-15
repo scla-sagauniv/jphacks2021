@@ -62,7 +62,6 @@
       submit() {
         if (!this.can_submit_search) return
         this.$store.commit("check", this.input);
-        this.$store.commit("CountUpEnter");
         this.input = '';
         return this.can_submit_search = false;
       },
