@@ -12,6 +12,7 @@
               offset-md="1"
               v-model="input"
               placeholder="入力してEnter"
+              ref='focusThis'
               @keypress.prevent.enter.exact="enable_submit"
               @keyup.prevent.enter.exact="submit">
               </b-form-input>
@@ -41,6 +42,9 @@
         klass: [],
         input: "",
       }
+    },
+    mounted() {
+      this.$refs.focusThis.focus();
     },
     computed: {
       missCount() {
