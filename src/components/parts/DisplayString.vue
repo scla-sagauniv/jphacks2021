@@ -17,13 +17,14 @@
       return {
         right: 0,
         fade_f: true,
+        isSpace: false
       }
     },
     computed: {
       style(){
         return {
           opacity: 0,
-          right: this.right + 'px'
+          right: this.right + 'px',
         }
       },
       string() {
