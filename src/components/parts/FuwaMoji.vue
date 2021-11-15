@@ -1,14 +1,15 @@
 <template>
-    <span v-bind:class="klass">{{char}}</span>
+    <span v-bind:class="klass" :style="style">{{char}}</span>
 </template>
 
 <script>
   export default {
     name: 'Strings',
-    props: ['char', 'index'],
+    props: ['char', 'index', 'isSpace'],
     data() {
       return {
         style: {
+          color: this.color
         },
         klass: [],
       }
@@ -19,6 +20,9 @@
         this.klass = ['fuwa']
       } else {
         this.klass = ['fuwa2']
+      }
+      if (isSpace) {
+        this.klass.push('-is-space')
       }
     }
   }
@@ -51,6 +55,9 @@
         0% {transform: translate(0, -3px) rotate(5deg);}
         50% {transform: translate(0, 3px) rotate(-5deg);}
         100% {transform: translate(0, -3px) rotate(5deg);}
+    }
+    .-is-space {
+      color: #f5f5f5;
     }
 </style>
 
