@@ -64,6 +64,7 @@
       gameStart() {
         getNews(this.pageNumber, this.categorySelect).then((res) => {
           this.$store.commit("initMondai", {mondai_list: res, category: this.categorySelect, page: this.pageNumber})
+          this.$store.commit("start")
           this.$emit('game-start')
         })
       },
