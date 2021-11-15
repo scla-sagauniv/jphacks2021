@@ -1,6 +1,6 @@
 <template>
     <div :style="style">
-        {{successStage-1}}/{{$store.state.selected.page}}
+        {{successStage}}/{{$store.state.selected.page}}
     </div>
 </template>
 
@@ -24,7 +24,7 @@
     },
     watch: {
       successStage() {
-        this.width = 100 * ((this.successStage-1) / this.$store.state.selected.page)
+        this.width = 100 * ((this.successStage) / this.$store.state.selected.page)
       }
     },
   }

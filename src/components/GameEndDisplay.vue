@@ -49,7 +49,7 @@
         <br>
         <b-button variant="primary" @click="gameStart">Retry</b-button>
         <br>
-        <a :href="twitter_url">Twitter</a>
+        <b-button variant="primary" @click="shareTwitter">Twitter共有</b-button>
     </div>
 </template>
 
@@ -70,10 +70,6 @@
       },
       missTypeCount() {
         return this.$store.state.missCount
-      },
-      twitter_url(){
-        this.$store.commit("twitter_url_create")
-        return this.$store.state.twitter_share_url
       },
       accuracy() {
         if (this.totalTypeCount === 0) {
@@ -119,10 +115,18 @@
           this.$emit('game-start')
         })
       },
-      categorySelect() {
-      },
-      pageNumber() {
-
+      shareTwitter() {
+        let text = "=== N-Typing 結果 ===\n"
+        text += "クリアタイム : " + this.totalTime + "[s]\n"
+        text += "Enter入力回数 : " + this.totalSubmit + "\n"
+        text += "間違えEnter回数 : " + this.missSubmit + "\n"
+        text += "合計タイプ文字数 : " + this.totalTypeCount + "\n"
+        text += "Score : " + this.resultScore + "\n"
+        text += "サイトURL : " + "https://news-typing-scla.herokuapp.com/\n"
+        text += "すごい!!!\n"
+        text += "#N_Typing #SCLA"
+        let twitter_share_url = "https://twitter.com/intent/tweet?" + "text=" + encodeURIComponent(text);
+        window.open(twitter_share_url, '_blank')
       },
       toNews(url){
         window.open(url, '_blank')
