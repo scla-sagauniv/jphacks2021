@@ -9,7 +9,7 @@ export default new Vuex.Store({
     interval: 90,
     strings: [],
     mondaiString: ['', ''],
-    displayString: '',
+    displayString: 'スペースキーでスタート！',
     inputStrings: null,
     inputStringsBase: null,
     selected: {category: null, page: null},
@@ -70,7 +70,6 @@ export default new Vuex.Store({
         }
       }
       state.displayString = state.displayString.join('');
-      console.log(state.mondaiString)
       state.mondaiString[0] += state.mondaiString[1].substr(0, n);
       state.mondaiString[1] = state.mondaiString[1].substr(n);
       state.onEnter++;
@@ -99,7 +98,7 @@ export default new Vuex.Store({
       state.missCount = 0
       state.successStage = 0
       state.typeSuccessCount = 0
-      state.displayString = ''
+      state.displayString = 'スペースキーでスタート！'
     },
     decrementInterval(state, decrement) {
       state.interval -= decrement

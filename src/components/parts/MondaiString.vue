@@ -1,6 +1,6 @@
 <template>
     <div class="mondai-box">
-        <p>【{{$store.state.successStage}}問目のニュースタイトル】</p>
+        <p>【{{$store.state.successStage + 1}}問目のニュースタイトル】</p>
         <span class="done">{{mondaiString[0]}}</span>
         <transition appear name="fade">
           <span v-if="fade_f" class="doing">
@@ -62,7 +62,6 @@
         }
         this.mondaiString.push(this.$store.state.mondaiString[0]);
         this.mondaiString.push(charList);
-        console.log(this.mondaiString)
       }
     }
   }
