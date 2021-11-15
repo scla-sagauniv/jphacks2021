@@ -5,7 +5,7 @@
 <script>
   export default {
     name: 'Strings',
-    props: ['char', 'index', 'isSpace'],
+    props: ['char', 'index'],
     data() {
       return {
         style: {
@@ -21,8 +21,13 @@
       } else {
         this.klass = ['fuwa2']
       }
-      if (isSpace) {
-        this.klass.push('-is-space')
+      if (this.char === " ") {
+        this.char = "･";
+        this.klass.push("-is-space")
+      }
+      else if (this.char === "　") {
+        this.char = "〇";
+        this.klass.push("-is-space")
       }
     }
   }
@@ -57,7 +62,7 @@
         100% {transform: translate(0, -3px) rotate(5deg);}
     }
     .-is-space {
-      color: #f5f5f5;
+      color: #C0C0C0;
     }
 </style>
 

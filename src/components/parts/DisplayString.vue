@@ -1,7 +1,7 @@
 <template>
     <transition appear name="fade">
         <div v-if="fade_f" :style="style">
-            <fuwa-moji v-for="(char, i) in string" :key="i" :char="char" :index="i" :isSpace="color"></fuwa-moji>
+            <fuwa-moji v-for="(char, i) in string" :key="i" :char="char" :index="i"></fuwa-moji>
         </div>
     </transition>
 </template>
@@ -39,19 +39,6 @@
         this.right = this.$store.state.type_size * this.$store.state.type_count;
       },
       string() {
-        for (let i = 0; i < 12; i++) {
-          if (this.string[i] === " ") {
-            this.string[i] = "･";
-            this.isSpace = true
-          }
-          else if (this.string[i] === "　") {
-            this.string[i] = "○";
-            this.isSpace = true
-          }
-          else {
-            this.isSpace = false
-          }
-        }
         this.fade_f = !this.fade_f;
         this.$nextTick(function() {
           this.fade_f = !this.fade_f;
