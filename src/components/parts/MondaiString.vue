@@ -23,21 +23,21 @@
       this.createMondai();
     },
     computed: {
-      on_enter() {
-        if (this.$store.state.displayString.length == 0) {
-          return this.stageClear();
-        }
-        return this.$store.state.onEnter;
+      update() {
+        return this.$store.state.displayString
       },
     },
     watch: {
-      on_enter() {
+      update() {
+        if (this.$store.state.displayString.length == 0) {
+          return this.stageClear();
+        }
         this.createMondai();
         this.fade_f = !this.fade_f;
         this.$nextTick(function() {
           this.fade_f = !this.fade_f;
         })
-      },
+      }
     },
     methods: {
       stageClear() {
