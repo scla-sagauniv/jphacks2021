@@ -70,6 +70,7 @@ export default new Vuex.Store({
         }
       }
       state.displayString = state.displayString.join('');
+      console.log(state.mondaiString)
       state.mondaiString[0] += state.mondaiString[1].substr(0, n);
       state.mondaiString[1] = state.mondaiString[1].substr(n);
       state.onEnter++;

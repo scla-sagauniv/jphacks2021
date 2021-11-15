@@ -1,5 +1,5 @@
 <template>
-    <span v-bind:class="klass">{{char}}</span>
+    <span v-bind:class="klass" :style="style">{{char}}</span>
 </template>
 
 <script>
@@ -9,6 +9,7 @@
     data() {
       return {
         style: {
+          color: this.color
         },
         klass: [],
       }
@@ -19,6 +20,14 @@
         this.klass = ['fuwa']
       } else {
         this.klass = ['fuwa2']
+      }
+      if (this.char === " ") {
+        this.char = "･";
+        this.klass.push("-is-space")
+      }
+      else if (this.char === "　") {
+        this.char = "〇";
+        this.klass.push("-is-space")
       }
     }
   }
@@ -51,6 +60,9 @@
         0% {transform: translate(0, -3px) rotate(5deg);}
         50% {transform: translate(0, 3px) rotate(-5deg);}
         100% {transform: translate(0, -3px) rotate(5deg);}
+    }
+    .-is-space {
+      color: #C0C0C0;
     }
 </style>
 

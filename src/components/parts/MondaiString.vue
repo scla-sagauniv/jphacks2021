@@ -1,9 +1,11 @@
 <template>
     <div class="mondai-box">
         <p>【{{$store.state.successStage}}問目のニュースタイトル】</p>
-        <span class="done">{{string[0]}}</span>
+        <span class="done">{{mondaiString[0]}}</span>
         <transition appear name="fade">
-          <span class="doing" v-if="fade_f">{{string[1]}}</span>
+          <p v-if="fade_f" class="doing">
+            <span v-for="(char, i) in mondaiString[1]" :key="i" v-bind:class="{'-is-space': char.isSpace}">{{char.char}}</span>
+          </p>
         </transition>
     </div>
 </template>
@@ -14,8 +16,11 @@
     data() {
       return {
         fade_f: true,
-        string: this.$store.state.mondaiString,
+        mondaiString: []
       }
+    },
+    mounted() {
+      this.createMondai();
     },
     computed: {
       on_enter() {
@@ -23,16 +28,16 @@
           return this.stageClear();
         }
         return this.$store.state.onEnter;
-      }
+      },
     },
     watch: {
       on_enter() {
-        this.string = this.$store.state.mondaiString;
+        this.createMondai();
         this.fade_f = !this.fade_f;
         this.$nextTick(function() {
           this.fade_f = !this.fade_f;
         })
-      }
+      },
     },
     methods: {
       stageClear() {
@@ -40,6 +45,25 @@
         this.$store.commit('choice');
         this.$store.commit('stageSuccess');
       },
+      createMondai() {
+        this.mondaiString = [];
+        let charList = this.$store.state.mondaiString[1];
+        charList = charList.split('');
+        for (let i=0; i < charList.length; i++) {
+          if (charList[i] === ' ') {
+            charList[i] = {char: '･', isSpace: true};
+          }
+          else if (charList[i] === '　') {
+            charList[i] = {char: '〇', isSpace: true};
+          }
+          else {
+            charList[i] = {char: charList[i], isSpace: false};
+          }
+        }
+        this.mondaiString.push(this.$store.state.mondaiString[0]);
+        this.mondaiString.push(charList);
+        console.log(this.mondaiString)
+      }
     }
   }
 </script>
@@ -66,6 +90,9 @@
     }
     .doing {
       opacity: 0;
+    }
+    .-is-space {
+      color: #C0C0C0;
     }
 
     .fade-enter-active {
