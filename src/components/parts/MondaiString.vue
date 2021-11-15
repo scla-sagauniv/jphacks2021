@@ -3,9 +3,9 @@
         <p>【{{$store.state.successStage}}問目のニュースタイトル】</p>
         <span class="done">{{mondaiString[0]}}</span>
         <transition appear name="fade">
-          <p v-if="fade_f" class="doing">
+          <span v-if="fade_f" class="doing">
             <span v-for="(char, i) in mondaiString[1]" :key="i" v-bind:class="{'-is-space': char.isSpace}">{{char.char}}</span>
-          </p>
+          </span>
         </transition>
     </div>
 </template>
