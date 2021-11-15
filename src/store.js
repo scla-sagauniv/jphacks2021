@@ -8,17 +8,21 @@ export default new Vuex.Store({
   state: {
     interval: 90,
     strings: [],
-    mondaiString: '',
-    displayString: '',
+    mondaiString: ['', ''],
+    displayString: 'スペースキーでスタート！',
     inputStrings: null,
     inputStringsBase: null,
     selected: {category: null, page: null},
+    successStage: 0,
+    onEnter: 0,
+    missEnter: 0,
     missCount: 0,
     typeSuccessCount: 0,
-    successStage: 0,
-    isDied: false,
+    startTime: null,
+    endTime: null,
+    isGameClear: false,
     type_count: 0,
-    type_size: 100
+    type_size: 100,
   },
   mutations: {
     initMondai(state, init_param) {
@@ -30,10 +34,12 @@ export default new Vuex.Store({
     choice(state) {
       let mondai = state.inputStrings.pop()
       if (!mondai) {
-        state.inputStrings = state.inputStringsBase.concat()
-        mondai = state.inputStrings.pop()
+        state.isGameClear = true
+        state.endTime = Date.now()
+        return
       }
-      state.mondaiString = mondai.mondaiString
+      state.mondaiString[0] = ''
+      state.mondaiString[1] = mondai.mondaiString
       state.displayString = mondai.displayString
       state.strings = mondai.inputString.split('')
       //type_sizeを決める
@@ -47,6 +53,33 @@ export default new Vuex.Store({
       let s_c = state.strings.length
       state.type_size = k / s_c;
     },
+    check(state, text) {
+      let n = 0;
+      const text_len = text.length
+      if (text_len == 0) {
+        return
+      }
+      text = text.split('');
+      state.displayString = state.displayString.split('');
+      while(state.displayString[0] === text.shift()) {
+        state.displayString.shift();
+        n++;
+        state.typeSuccessCount++;
+        if(state.displayString.length == 0) {
+          break;
+        }
+      }
+      state.displayString = state.displayString.join('');
+      state.mondaiString[0] += state.mondaiString[1].substr(0, n);
+      state.mondaiString[1] = state.mondaiString[1].substr(n);
+      state.onEnter++;
+      if (text_len > n) {
+        state.missEnter++
+      }
+    },
+    start(state) {
+      state.startTime = Date.now();
+    },
     typeMiss(state) {
       state.missCount++
     },
@@ -58,9 +91,6 @@ export default new Vuex.Store({
       state.successStage++
       state.type_count = 0
     },
-    die(state) {
-      state.isDied = true
-    },
     resetAll(state) {
       state.isDied = false
       state.interval = 120
@@ -68,10 +98,10 @@ export default new Vuex.Store({
       state.missCount = 0
       state.successStage = 0
       state.typeSuccessCount = 0
-      state.displayString = ''
+      state.displayString = 'スペースキーでスタート！'
     },
     decrementInterval(state, decrement) {
       state.interval -= decrement
-    }
+    },
   }
 })

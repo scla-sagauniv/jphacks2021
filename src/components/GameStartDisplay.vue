@@ -35,7 +35,7 @@
   export default {
     name: 'GameStartDisplay',
     components: {
-        FuwaMoji
+        FuwaMoji,
     },
     data() {
         return {
@@ -57,7 +57,7 @@
             { value: '25', text: '25' },
             { value: '50', text: '50' },
             { value: '100', text: '100' }
-          ]
+          ],
         }
     },
     methods: {
@@ -66,12 +66,6 @@
           this.$store.commit("initMondai", {mondai_list: res, category: this.categorySelect, page: this.pageNumber})
           this.$emit('game-start')
         })
-      },
-      categorySelect() {
-
-      },
-      pageNumber() {
-
       },
     }
   }

@@ -1,22 +1,67 @@
 <template>
-    <div :style="style">
-        【お題のニュースタイトル】</br>
-        {{$store.state.mondaiString}}
+    <div class="mondai-box">
+        <p>【{{$store.state.successStage + 1}}問目のニュースタイトル】</p>
+        <span class="done">{{mondaiString[0]}}</span>
+        <transition appear name="fade">
+          <span v-if="fade_f" class="doing">
+            <span v-for="(char, i) in mondaiString[1]" :key="i" v-bind:class="{'-is-space': char.isSpace}">{{char.char}}</span>
+          </span>
+        </transition>
     </div>
 </template>
 
 <script>
   export default {
-    name: 'DisplayString',
+    name: 'mondaiString',
     data() {
       return {
-        style: {
-        },
+        fade_f: true,
+        mondaiString: []
       }
     },
+    mounted() {
+      this.createMondai();
+    },
     computed: {
-      string() {
-        return this.$store.state.displayString.split('')
+      update() {
+        return this.$store.state.displayString
+      },
+    },
+    watch: {
+      update() {
+        if (this.$store.state.displayString.length == 0) {
+          return this.stageClear();
+        }
+        this.createMondai();
+        this.fade_f = !this.fade_f;
+        this.$nextTick(function() {
+          this.fade_f = !this.fade_f;
+        })
+      }
+    },
+    methods: {
+      stageClear() {
+        // choice next word
+        this.$store.commit('choice');
+        this.$store.commit('stageSuccess');
+      },
+      createMondai() {
+        this.mondaiString = [];
+        let charList = this.$store.state.mondaiString[1];
+        charList = charList.split('');
+        for (let i=0; i < charList.length; i++) {
+          if (charList[i] === ' ') {
+            charList[i] = {char: '･', isSpace: true};
+          }
+          else if (charList[i] === '　') {
+            charList[i] = {char: '〇', isSpace: true};
+          }
+          else {
+            charList[i] = {char: charList[i], isSpace: false};
+          }
+        }
+        this.mondaiString.push(this.$store.state.mondaiString[0]);
+        this.mondaiString.push(charList);
       }
     }
   }
@@ -31,6 +76,33 @@
         position: relative;
         text-align: left;
         display: table;
+        user-select: none;
     }
 
+    .mondai-box {
+      width: 80%;
+      height: 30%;
+    }
+
+    .done {
+      color: red;
+    }
+    .doing {
+      opacity: 0;
+    }
+    .-is-space {
+      color: #C0C0C0;
+    }
+
+    .fade-enter-active {
+      animation: fade 3s;
+    }
+    .fade-leave-active {
+      opacity: 0;
+    }
+    @keyframes fade { /*animation-nameで設定した値を書く*/
+        0% {opacity: 1} /*アニメーション開始時は不透明度0%*/
+        40% {opacity: 1}
+        100% {opacity: 0} /*アニメーション終了時は不透明度100%*/
+    }
 </style>
