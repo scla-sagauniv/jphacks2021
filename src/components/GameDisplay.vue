@@ -75,6 +75,9 @@
           this.$store.commit("choice")
           window.removeEventListener("keydown", this.keyAction);
           this.$refs.focusThis.focus();
+          setTimeout(() => {
+            this.input = ''
+          }, 100)
         }
       }
     }

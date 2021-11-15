@@ -62,7 +62,6 @@
         }
         this.mondaiString.push(this.$store.state.mondaiString[0]);
         this.mondaiString.push(charList);
-        console.log(this.mondaiString)
       }
     }
   }
