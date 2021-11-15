@@ -1,9 +1,9 @@
 <template>
     <div class="mondai-box">
-        <p>【{{$store.state.successStage}}問目のニュースタイトル】</p>
-        <span class="done">{{string[0]}}</span>
+        <p>【{{$store.state.successStage + 1}}問目のニュースタイトル】</p>
+        <span class="done">{{mondaiString[0]}}</span>
         <transition appear name="fade">
-          <span class="doing" v-if="fade_f">{{string[1]}}</span>
+          <span class="doing" v-if="fade_f">{{mondaiString[1]}}</span>
         </transition>
     </div>
 </template>
@@ -14,7 +14,7 @@
     data() {
       return {
         fade_f: true,
-        string: this.$store.state.mondaiString,
+        mondaiString: this.$store.state.mondaiString,
       }
     },
     computed: {
@@ -23,6 +23,9 @@
           return this.stageClear();
         }
         return this.$store.state.onEnter;
+      },
+      mondaiString() {
+        return this.$store.state.mondaiString;
       }
     },
     watch: {
@@ -37,6 +40,7 @@
     methods: {
       stageClear() {
         // choice next word
+        console.log("ここだよ")
         this.$store.commit('choice');
         this.$store.commit('stageSuccess');
       },

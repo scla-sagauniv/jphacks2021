@@ -44,7 +44,7 @@
       }
     },
     mounted() {
-      this.$refs.focusThis.focus();
+      window.addEventListener("keydown", this.keyAction);
     },
     computed: {
       missCount() {
@@ -69,6 +69,14 @@
         this.input = '';
         return this.can_submit_search = false;
       },
+      keyAction(e) {
+        if (e.keyCode == 32) {
+          this.$store.commit("start")
+          this.$store.commit("choice")
+          window.removeEventListener("keydown", this.keyAction);
+          this.$refs.focusThis.focus();
+        }
+      }
     }
   }
 </script>
