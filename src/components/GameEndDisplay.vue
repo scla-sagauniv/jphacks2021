@@ -48,6 +48,8 @@
         </b-container>
         <br>
         <b-button variant="primary" @click="gameStart">Retry</b-button>
+        <br>
+        <a :href="twitter_url">Twitter</a>
     </div>
 </template>
 
@@ -68,6 +70,10 @@
       },
       missTypeCount() {
         return this.$store.state.missCount
+      },
+      twitter_url(){
+        this.$store.commit("twitter_url_create")
+        return this.$store.state.twitter_share_url
       },
       accuracy() {
         if (this.totalTypeCount === 0) {
