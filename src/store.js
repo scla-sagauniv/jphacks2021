@@ -92,12 +92,12 @@ export default new Vuex.Store({
       state.type_count = 0
     },
     resetAll(state) {
-      state.isDied = false
-      state.interval = 120
-      state.strings = []
-      state.missCount = 0
+      state.isGameClear = false
       state.successStage = 0
       state.typeSuccessCount = 0
+      state.onEnter = 0
+      state.missEnter = 0
+      state.mondaiString = ['', '']
       state.displayString = 'スペースキーでスタート！'
     },
     decrementInterval(state, decrement) {
