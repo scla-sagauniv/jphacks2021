@@ -2,7 +2,7 @@ package main
 
 import (
 	"fmt"
-	"os"
+	// "os"
 	"bytes"
 	"net/http"
 	"log"
@@ -21,10 +21,10 @@ func main() {
 	r.GET("/", root)
 	r.GET("/getnews", getNews)
 	r.GET("/postgoo", postGoo)
-	port := os.Getenv("PORT")
-	fmt.Println("PORT:", port)
-	r.Run(":" + port)
-	// r.Run(":8000")
+	r.GET("/postfurigana", postFurigana)
+	// port := os.Getenv("PORT")
+	// r.Run(":" + port)
+	r.Run(":8000")
 }
 
 func root(ctx *gin.Context) {
@@ -110,5 +110,71 @@ func postGoo(ctx *gin.Context) {
 		fmt.Println("JSON Unmarshal error:", err)
 		return
 	}
+    ctx.JSON(http.StatusOK, res_data)
+}
+
+
+type reqFurigana struct {
+	ID      string `json:"id"`
+	Jsonrpc string `json:"jsonrpc"`
+	Method  string `json:"method"`
+	Params  struct {
+		Q     string `json:"q"`
+		Grade int    `json:"grade"`
+	} `json:"params"`
+}
+
+type resFurigana struct {
+	ID      string `json:"id"`
+	Jsonrpc string `json:"jsonrpc"`
+	Result  struct {
+		Word []struct {
+			Surface  string `json:"surface"`
+			Furigana string `json:"furigana,omitempty"`
+			Roman    string `json:"roman,omitempty"`
+			Subword  []struct {
+				Furigana string `json:"furigana"`
+				Roman    string `json:"roman"`
+				Surface  string `json:"surface"`
+			} `json:"subword,omitempty"`
+		} `json:"word"`
+	} `json:"result"`
+}
+
+func postFurigana(ctx *gin.Context) {
+	app_id := "Yahoo AppID: dj00aiZpPXhqZkE3emJwZ2pYdyZzPWNvbnN1bWVyc2VjcmV0Jng9YmM-"
+
+	requestBody := new(reqFurigana)
+	requestBody.ID = "1"
+	requestBody.Jsonrpc = "2.0"
+	requestBody.Method = "jlp.furiganaservice.furigana"
+	requestBody.Params.Q = ctx.Query("sent")
+	requestBody.Params.Grade = 1
+	
+    jsonString, err := json.Marshal(requestBody)
+	fmt.Println("[+] %s\n", string(jsonString))
+    if err != nil {
+        panic("Furigana request Error")
+    }
+	url := "https://jlp.yahooapis.jp/FuriganaService/V2/furigana"
+    req, err := http.NewRequest("POST", url, bytes.NewBuffer(jsonString))
+    req.Header.Set("Content-Type", "application/json")
+    req.Header.Set("User-Agent", app_id)
+    client := new(http.Client)
+    resp, err := client.Do(req)
+    if err != nil {
+        fmt.Printf("%s\n", err)
+        ctx.JSON(404, err)
+        return
+    }
+    defer resp.Body.Close()
+    byteArray, _ := ioutil.ReadAll(resp.Body)
+    jsonBytes := ([]byte)(byteArray)
+	res_data := new(resFurigana)
+	if err := json.Unmarshal(jsonBytes, res_data); err != nil {
+		fmt.Println("JSON Unmarshal error:", err)
+		return
+	}
+	fmt.Println("[+] %s\n", string(jsonBytes))
     ctx.JSON(http.StatusOK, res_data)
 }
