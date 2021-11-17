@@ -3,7 +3,7 @@
         <p>【お題のニュースタイトル】</p>
         <p><span class="done">{{string[0]}}</span>{{string[1]}}</p>
         <!-- 動画のリンクだと切れます -->
-        <img :src="returnImageUrl" class="img-size">
+        <img :src="returnImageUrl" class="img-size" style="display: block; margin: auto;">
     </div>
 </template>
 
@@ -48,6 +48,7 @@
         display: table;
     }
     .img-size {
+        padding: 10px;
         width: 700px;
         height: 300px;
     }

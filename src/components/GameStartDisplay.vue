@@ -86,7 +86,7 @@
 <style scoped lang="scss">
     .gameDisplay {
         width: 1000px;
-        height: 700px;
+        height: 800px;
         border: 5px solid #CCC;
         margin: auto;
         position: relative;

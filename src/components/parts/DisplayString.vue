@@ -40,7 +40,7 @@
 <style scoped lang="scss">
     div {
         font-size: 50px;
-        margin: 70px auto 0 auto;
+        margin: 30px auto 0 auto;
         text-align: center;
         position: relative;
         display: table;
