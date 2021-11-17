@@ -1,7 +1,8 @@
 <template>
     <div class="gameDisplay">
+          <b-button variant="primary" @click="open_tutorial" id="tutorial">tutorial</b-button>
         <h1>
-            <fuwa-moji v-for="(char, i) in title" :key="i" :char="char" :index="i"></fuwa-moji>
+          <fuwa-moji v-for="(char, i) in title" :key="i" :char="char" :index="i"></fuwa-moji>
         </h1>
         <br>
         <h3>カテゴリー</h3>
@@ -26,7 +27,6 @@
         </b-container>
         <br>
         <b-button variant="primary" @click="gameStart">Start Game</b-button>
-        <b-button variant="primary" @click="open_tutorial">tutorial</b-button>
         <tutorial v-show="tutorial_page" v-on:close="close_tutorial"></tutorial>
     </div>
 </template>
@@ -83,6 +83,12 @@
 </script>
 
 <style scoped lang="scss">
+    #tutorial{
+      white-space:nowrap;
+      position:absolute;
+      top: 20px;
+      left: 900px;
+    }
     .gameDisplay {
         width: 1000px;
         height: 700px;
