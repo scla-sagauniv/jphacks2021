@@ -22,9 +22,9 @@ func main() {
 	r.GET("/getnews", getNews)
 	r.GET("/postgoo", postGoo)
 	r.GET("/postfurigana", postFurigana)
-	// port := os.Getenv("PORT")
-	// r.Run(":" + port)
-	r.Run(":8000")
+	port := os.Getenv("PORT")
+	r.Run(":" + port)
+	// r.Run(":8000")
 }
 
 func root(ctx *gin.Context) {
