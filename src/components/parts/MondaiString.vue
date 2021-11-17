@@ -1,9 +1,13 @@
 <template>
-    <div>
-        <p>【お題のニュースタイトル】</p>
-        <p><span class="done">{{string[0]}}</span>{{string[1]}}</p>
+    <div class="news-box">
+        <div id="title-box">
+          <p>【お題のニュースタイトル】</p>
+          <p><span class="done">{{string[0]}}</span>{{string[1]}}</p>
+        </div>
         <!-- 動画のリンクだと切れます -->
-        <img :src="returnImageUrl" class="img-size" style="display: block; margin: auto;">
+        <div class="img-box">
+          <img :src="returnImageUrl" class="img-size" style="display: block; margin: auto;">
+        </div>
     </div>
 </template>
 
@@ -38,14 +42,21 @@
 </script>
 
 <style scoped lang="scss">
-    div {
+    .news-box {
         font-size: 25px;
         border: 2px solid #d3d3d3;
         margin: 10px;
         padding: 10px;
         position: relative;
-        text-align: left;
+        text-align: center;
         display: table;
+        width: 970px;
+    }
+    #title-box {
+      text-align: left;
+    }
+    .img-box {
+
     }
     .img-size {
         padding: 10px;
