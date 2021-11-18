@@ -2,6 +2,11 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 import {_} from 'vue-underscore'
 
+let start_msg = "スペースキーでスタート！".split('')
+for (let i = 0; i < start_msg.length; i++) {
+  start_msg[i] = {word: start_msg[i], ruby: undefined}
+}
+
 Vue.use(Vuex)
 
 export default new Vuex.Store({
@@ -9,7 +14,7 @@ export default new Vuex.Store({
     interval: 90,
     strings: [],
     mondaiString: ['', ''],
-    displayString: 'スペースキーでスタート！',
+    displayString: start_msg,
     inputStrings: null,
     inputStringsBase: null,
     selected: {category: null, page: null},
@@ -40,7 +45,8 @@ export default new Vuex.Store({
       }
       state.mondaiString[0] = ''
       state.mondaiString[1] = mondai.mondaiString
-      state.displayString = mondai.displayString
+      state.displayString = mondai.furigana
+      console.log(state.displayString)
       state.strings = mondai.inputString.split('')
       //type_sizeを決める
       //題名のpx
@@ -98,7 +104,7 @@ export default new Vuex.Store({
       state.onEnter = 0
       state.missEnter = 0
       state.mondaiString = ['', '']
-      state.displayString = 'スペースキーでスタート！'
+      state.displayString = start_msg
     },
     decrementInterval(state, decrement) {
       state.interval -= decrement

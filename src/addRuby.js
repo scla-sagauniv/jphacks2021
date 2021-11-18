@@ -6,15 +6,15 @@ async function addRuby(mondai_list) {
         if (json.result.word[i].subword) {
             for (let n = 0; n < json.result.word[i].subword.length; n++) {
                 if (/\p{sc=Han}/u.test(json.result.word[i].subword[n].surface)) {
-                    ruby_list_part.push({ word: json.result.word[i].subword[n].surface, furigana: json.result.word[i].subword[n].furigana })
+                    ruby_list_part.push({ word: json.result.word[i].subword[n].surface, ruby: json.result.word[i].subword[n].furigana })
                 }
                 else {
-                    ruby_list_part.push({ word: json.result.word[i].subword[n].surface, furigana: undefined })
+                    ruby_list_part.push({ word: json.result.word[i].subword[n].surface, ruby: undefined })
                 }
             }
         }
         else if (/\p{sc=Han}/u.test(json.result.word[i].surface)) {
-            ruby_list_part.push({ word: json.result.word[i].surface, furigana: json.result.word[i].furigana })
+            ruby_list_part.push({ word: json.result.word[i].surface, ruby: json.result.word[i].furigana })
         }
         else {
             if (json.result.word[i].surface === "<" && json.result.word[i+1].surface === ">") {
@@ -23,7 +23,7 @@ async function addRuby(mondai_list) {
                 idx++
             }
             else {
-                ruby_list_part.push({ word: json.result.word[i].surface, furigana: undefined })
+                ruby_list_part.push({ word: json.result.word[i].surface, ruby: undefined })
             }
         }
     }

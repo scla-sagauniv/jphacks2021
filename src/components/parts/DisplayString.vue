@@ -1,7 +1,7 @@
 <template>
     <transition appear name="fade">
-        <div v-if="fade_f" :style="style">
-            <fuwa-moji v-for="(char, i) in string" :key="i" :char="char" :index="i"></fuwa-moji>
+        <div v-if="fade_f" class="disp-fuwa">
+            <fuwa-moji v-for="(char_map, i) in string" :key="i" :char_map="char_map" :index="i"></fuwa-moji>
         </div>
     </transition>
 </template>
@@ -21,14 +21,9 @@
       }
     },
     computed: {
-      style(){
-        return {
-          opacity: 0,
-          right: this.right + 'px',
-        }
-      },
       string() {
-        return this.$store.state.displayString.substr(0, 12).split('')
+        console.log(this.$store.state.displayString)
+        return this.$store.state.displayString.slice(0, 12)
       },
       type_count() {
         return this.$store.state.type_count
@@ -57,6 +52,11 @@
         display: table;
     }
 
+    .disp-fuwa {
+      opacity: 0;
+      white-space: nowrap;
+    }
+
     .fade-enter-active {
       animation: fade 3s;
     }
@@ -66,7 +66,7 @@
     @keyframes fade { /*animation-nameで設定した値を書く*/
         0% {opacity: 1} /*アニメーション開始時は不透明度0%*/
         40% {opacity: 1}
-        100% {opacity: 0} /*アニメーション終了時は不透明度100%*/
+        100% {opacity: 1} /*アニメーション終了時は不透明度100%*/
     }
 
 </style>
