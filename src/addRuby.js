@@ -21,6 +21,7 @@ async function addRuby(mondai_list) {
                 mondai_list[idx]["furigana"] = ruby_list_part
                 ruby_list_part = []
                 idx++
+                i++
             }
             else {
                 ruby_list_part.push({ word: json.result.word[i].surface, ruby: undefined })

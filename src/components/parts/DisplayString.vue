@@ -66,7 +66,7 @@
     @keyframes fade { /*animation-nameで設定した値を書く*/
         0% {opacity: 1} /*アニメーション開始時は不透明度0%*/
         40% {opacity: 1}
-        100% {opacity: 1} /*アニメーション終了時は不透明度100%*/
+        100% {opacity: 0} /*アニメーション終了時は不透明度100%*/
     }
 
 </style>
