@@ -1,5 +1,6 @@
 <template>
     <div class="gameDisplay">
+          <b-button variant="primary" @click="open_tutorial" id="tutorial">tutorial</b-button>
         <h1>
             <fuwa-moji v-for="(char_map, i) in title" :key="i" :char_map="char_map" :index="i"></fuwa-moji>
         </h1>
@@ -26,16 +27,19 @@
         </b-container>
         <br>
         <b-button variant="primary" @click="gameStart">Start Game</b-button>
+        <tutorial v-show="tutorial_page" v-on:close="close_tutorial"></tutorial>
     </div>
 </template>
 
 <script>
   import FuwaMoji from './parts/FuwaMoji'
   import getNews from '@/getNews'
+  import Tutorial from './Tutorial'
   export default {
     name: 'GameStartDisplay',
     components: {
         FuwaMoji,
+        'tutorial':Tutorial,
     },
     data() {
         return {
@@ -58,6 +62,7 @@
             { value: '50', text: '50' },
             { value: '100', text: '100' }
           ],
+          tutorial_page: false,
         }
     },
     created() {
@@ -73,6 +78,12 @@
           this.$store.commit("initMondai", {mondai_list: res, category: this.categorySelect, page: this.pageNumber})
         })
       },
+      open_tutorial() {
+        this.tutorial_page = true;
+      },
+      close_tutorial(){
+        this.tutorial_page = false;
+      },
       gameStart() {
         this.$emit('game-start')
       },
@@ -81,6 +92,12 @@
 </script>
 
 <style scoped lang="scss">
+    #tutorial{
+      white-space:nowrap;
+      position:absolute;
+      top: 20px;
+      left: 900px;
+    }
     .gameDisplay {
         width: 1000px;
         height: 800px;
