@@ -1,12 +1,18 @@
 <template>
-    <div class="mondai-box">
-        <p>【{{$store.state.successStage + 1}}問目のニュースタイトル】</p>
-        <span class="done">{{mondaiString[0]}}</span>
-        <transition appear name="fade">
-          <span v-if="fade_f" class="doing">
-            <span v-for="(char, i) in mondaiString[1]" :key="i" v-bind:class="{'-is-space': char.isSpace}">{{char.char}}</span>
-          </span>
-        </transition>
+    <div class="news-box">
+        <div id="title-box">
+          <p>【{{$store.state.successStage + 1}}問目のニュースタイトル】</p>
+          <span class="done">{{mondaiString[0]}}</span>
+          <transition appear name="fade">
+            <span v-if="fade_f" class="doing">
+              <span v-for="(char, i) in mondaiString[1]" :key="i" v-bind:class="{'-is-space': char.isSpace}">{{char.char}}</span>
+            </span>
+          </transition>
+        </div>
+        <!-- 動画のリンクだと切れます -->
+        <div class="img-box">
+          <img :src="returnImageUrl" class="img-size" style="display: block; margin: auto;">
+        </div>
     </div>
 </template>
 
@@ -37,6 +43,9 @@
         this.$nextTick(function() {
           this.fade_f = !this.fade_f;
         })
+      },
+      returnImageUrl() {
+        return this.$store.state.mondaiImage;
       }
     },
     methods: {
@@ -68,22 +77,29 @@
 </script>
 
 <style scoped lang="scss">
-    div {
+    .news-box {
         font-size: 25px;
         border: 2px solid #d3d3d3;
         margin: 10px;
         padding: 10px;
         position: relative;
-        text-align: left;
+        text-align: center;
         display: table;
-        user-select: none;
+        width: 970px;
     }
-
-    .mondai-box {
-      width: 80%;
-      height: 30%;
+    #title-box {
+      text-align: left;
     }
-
+    .img-box {
+        border: 2px solid #d3d3d3;
+    }
+    .img-size {
+          width:55%;
+          height: 300px;
+          object-fit: contain;
+          /*何これ*/
+          user-select: none;
+    }
     .done {
       color: red;
     }

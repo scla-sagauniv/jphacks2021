@@ -23,6 +23,7 @@ export default new Vuex.Store({
     isGameClear: false,
     type_count: 0,
     type_size: 100,
+    mondaiImage: ''
   },
   mutations: {
     initMondai(state, init_param) {
@@ -52,6 +53,8 @@ export default new Vuex.Store({
       //stringsの数
       let s_c = state.strings.length
       state.type_size = k / s_c;
+      // イメージをとってくる
+      state.mondaiImage = mondai.mondaiImage;
     },
     check(state, text) {
       let n = 0;
