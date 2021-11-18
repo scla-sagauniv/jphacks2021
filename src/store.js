@@ -61,21 +61,63 @@ export default new Vuex.Store({
     },
     check(state, text) {
       let n = 0;
-      const text_len = text.length
+      let remainder = "";
+      const text_len = text.length;
       if (text_len == 0) {
         return
       }
       text = text.split('');
-      state.displayString = state.displayString.split('');
-      while(state.displayString[0] === text.shift()) {
-        state.displayString.shift();
-        n++;
-        state.typeSuccessCount++;
-        if(state.displayString.length == 0) {
-          break;
+      while(text.length > 0) {
+        console.log("外のif前", state.displayString[0].word, state.displayString[0].word.length)
+        if (state.displayString[0].word.length > 1) {
+          let word_list = state.displayString[0].word.split('');
+          while(word_list.length > 0) {
+            if (word_list[0] === text[0]) {
+              word_list.shift();
+              text.shift();
+              state.typeSuccessCount++;
+              n++;
+              console.log("中のwhile:", n, word_list)
+            }
+            else {
+              remainder = word_list.join('')
+              if (remainder === word_list) {
+                break;
+              }
+              else {
+                let tmp = {word: remainder, ruby: undefined};
+                state.displayString.shift();
+                state.displayString.unshift(tmp);
+                break;
+              }
+            }
+          }
+          console.log("中のwhile後:", state.displayString, remainder.length)
+          if (remainder.length === 0) {
+            state.displayString.shift();
+          }
+          else {
+            break;
+          }
+        }
+        else {
+          if (state.displayString[0].word === text[0]) {
+            state.displayString.shift();
+            text.shift();
+            state.typeSuccessCount++;
+            n++;
+            console.log("外のelse:", n)
+            if(state.displayString.length == 0) {
+              break;
+            }
+          }
+          else {
+            break;
+          }
         }
       }
-      state.displayString = state.displayString.join('');
+      console.log("外のwhile", state.displayString)
+      // state.displayString = state.displayString.join('');
       state.mondaiString[0] += state.mondaiString[1].substr(0, n);
       state.mondaiString[1] = state.mondaiString[1].substr(n);
       state.onEnter++;
