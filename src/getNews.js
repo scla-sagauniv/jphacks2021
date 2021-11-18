@@ -1,5 +1,6 @@
 import toHiragana from "./toHiragana"
 import toRome from "./toRome"
+import makeRuby from "./makeRuby"
 async function getNews(pageNumber, categorySelect){
 
   let mondai_list = [], for_input;
@@ -19,6 +20,7 @@ async function getNews(pageNumber, categorySelect){
     }
     mondai_list.push({mondaiString: json.articles[i].title, mondaiUrl: json.articles[i].url, displayString: json.articles[i].title, inputString: "for_input"});
   }
-  return mondai_list
+  const ruby_map = await makeRuby(mondai_list)
+  return {mondai_list: mondai_list, ruby_map: ruby_map}
 }
 export default getNews
