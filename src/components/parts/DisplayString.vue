@@ -1,9 +1,12 @@
 <template>
-    <transition appear name="fade">
+    <transition appear v-if="$store.state.isGameStart" name="fade">
         <div v-if="fade_f" class="disp-fuwa">
             <fuwa-moji v-for="(char_map, i) in string" :key="i" :char_map="char_map" :index="i"></fuwa-moji>
         </div>
     </transition>
+    <div v-else>
+        <fuwa-moji v-for="(char_map, i) in string" :key="i" :char_map="char_map" :index="i"></fuwa-moji>
+    </div>
 </template>
 
 <script>

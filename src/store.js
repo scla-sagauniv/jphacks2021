@@ -25,6 +25,7 @@ export default new Vuex.Store({
     typeSuccessCount: 0,
     startTime: null,
     endTime: null,
+    isGameStart: false,
     isGameClear: false,
     type_count: 0,
     type_size: 100,
@@ -124,6 +125,7 @@ export default new Vuex.Store({
     },
     start(state) {
       state.startTime = Date.now();
+      state.isGameStart = true;
     },
     typeMiss(state) {
       state.missCount++
