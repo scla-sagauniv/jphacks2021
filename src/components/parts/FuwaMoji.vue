@@ -22,12 +22,12 @@
       } else {
         this.klass = ['fuwa2']
       }
-      if (this.cha_map.word === " ") {
-        this.char = "･";
+      if (this.char_map.word === " ") {
+        this.char_map.word = "･";
         this.klass.push("-is-space")
       }
-      else if (this.char.word === "　") {
-        this.char = "〇";
+      else if (this.char_map.word === "　") {
+        this.char_map.word = "〇";
         this.klass.push("-is-space")
       }
     }
