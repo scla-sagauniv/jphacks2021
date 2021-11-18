@@ -32,6 +32,9 @@
       update() {
         return this.$store.state.displayString
       },
+      returnImageUrl() {
+        return this.$store.state.mondaiImage;
+      }
     },
     watch: {
       update() {
@@ -44,9 +47,6 @@
           this.fade_f = !this.fade_f;
         })
       },
-      returnImageUrl() {
-        return this.$store.state.mondaiImage;
-      }
     },
     methods: {
       stageClear() {
