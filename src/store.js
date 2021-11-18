@@ -9,13 +9,17 @@ export default new Vuex.Store({
     interval: 90,
     strings: [],
     mondaiString: ['', ''],
-    displayString: '',
+    displayString: 'スペースキーでスタート！',
     inputStrings: null,
     inputStringsBase: null,
     selected: {category: null, page: null},
+    successStage: 0,
+    onEnter: 0,
+    missEnter: 0,
     missCount: 0,
     typeSuccessCount: 0,
-    successStage: 0,
+    startTime: null,
+    endTime: null,
     isGameClear: false,
     type_count: 0,
     type_size: 100,
@@ -32,6 +36,7 @@ export default new Vuex.Store({
       let mondai = state.inputStrings.pop()
       if (!mondai) {
         state.isGameClear = true
+        state.endTime = Date.now()
         return
       }
       state.mondaiString[0] = ''
@@ -53,19 +58,30 @@ export default new Vuex.Store({
     },
     check(state, text) {
       let n = 0;
+      const text_len = text.length
+      if (text_len == 0) {
+        return
+      }
       text = text.split('');
       state.displayString = state.displayString.split('');
       while(state.displayString[0] === text.shift()) {
         state.displayString.shift();
+        n++;
+        state.typeSuccessCount++;
         if(state.displayString.length == 0) {
           break;
         }
-        n++;
-        state.typeSuccessCount++;
       }
       state.displayString = state.displayString.join('');
       state.mondaiString[0] += state.mondaiString[1].substr(0, n);
       state.mondaiString[1] = state.mondaiString[1].substr(n);
+      state.onEnter++;
+      if (text_len > n) {
+        state.missEnter++
+      }
+    },
+    start(state) {
+      state.startTime = Date.now();
     },
     typeMiss(state) {
       state.missCount++
@@ -79,16 +95,16 @@ export default new Vuex.Store({
       state.type_count = 0
     },
     resetAll(state) {
-      state.isDied = false
-      state.interval = 120
-      state.strings = []
-      state.missCount = 0
+      state.isGameClear = false
       state.successStage = 0
       state.typeSuccessCount = 0
-      state.displayString = ''
+      state.onEnter = 0
+      state.missEnter = 0
+      state.mondaiString = ['', '']
+      state.displayString = 'スペースキーでスタート！'
     },
     decrementInterval(state, decrement) {
       state.interval -= decrement
-    }
+    },
   }
 })

@@ -1,7 +1,8 @@
 <template>
   <div id="app">
-      <span id="ruler" style="visibility:hidden;position:absolute;white-space:nowrap;"></span>
-      <component v-bind:is="currentComponent" v-on:game-start="gameStart"></component>
+      <loading v-show="loading"></loading>
+      <span v-show="!loading" id="ruler" style="visibility:hidden;position:absolute;white-space:nowrap;"></span>
+      <component v-show="!loading" v-bind:is="currentComponent" v-on:game-start="gameStart"></component>
   </div>
 </template>
 
@@ -9,23 +10,34 @@
 import GameDisplay from './components/GameDisplay'
 import GameEndDisplay from './components/GameEndDisplay'
 import GameStartDisplay from './components/GameStartDisplay'
+import Loading from './components/Loading.vue'
 
 export default {
   name: 'app',
   components: {
     GameDisplay,
     GameEndDisplay,
-    GameStartDisplay
+    GameStartDisplay,
+    Loading
   },
   data() {
     return {
-      currentComponent: GameStartDisplay
+      currentComponent: GameStartDisplay,
+      loading: true
     }
+  },
+  mounted() {  
+    const url = 'https://tatakimaru.herokuapp.com/';
+    fetch(url).then((res) => {
+      if (res.status === 200) {
+        this.loading = false
+      }
+    })
   },
   computed: {
     isGameClear() {
         return this.$store.state.isGameClear
-    }
+    },
   },
   watch: {
     isGameClear() {
@@ -39,7 +51,7 @@ export default {
     gameStart() {
       this.$store.commit('resetAll')
       this.currentComponent = GameDisplay
-    }
+    },
   }
 }
 </script>

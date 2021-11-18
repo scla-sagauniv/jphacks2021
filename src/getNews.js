@@ -13,6 +13,10 @@ async function getNews(pageNumber, categorySelect){
     // res = await toHiragana(json.articles[i].title)
     // for_input = await toRome(res, 'kunrei')
     // mondai_list.push({mondaiString: json.articles[i].title, mondaiUrl: json.articles[i].url, displayString: res, inputString: for_input});
+    json.articles[i].title = json.articles[i].title.split(" - ")[0];
+    if (json.articles[i].author != null) {
+      json.articles[i].title = json.articles[i].title.replace(`（${json.articles[i].author}）`, "")
+    }
     mondai_list.push({mondaiString: json.articles[i].title, mondaiUrl: json.articles[i].url, displayString: json.articles[i].title, inputString: "for_input", mondaiImage: json.articles[i].urlToImage});
   }
   return mondai_list
