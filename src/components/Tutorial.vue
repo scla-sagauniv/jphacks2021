@@ -19,7 +19,7 @@
             <fuwa-moji :char_map='{word: "　", ruby: undefined}' :index=1 id="fuwa_m"></fuwa-moji>
             <span>と表示されるので注意しよう！</span>
             <br>
-            <b-button v-on:click="close" id="cloce" variant="primary">close</b-button>
+            <b-button v-on:click="close" id="close" variant="primary">close</b-button>
         </div>
     </div>
 </template>
@@ -73,14 +73,14 @@ ul{
 }
 
 #close{
-    position: absolute;
-
+    // position: absolute;
+    margin-top: 30px
 }
 
 #content{
   z-index:10;
-  width:42%;
-  height: 60%;
+  width:630px;
+  height: 450px;
   padding: 1em;
   background:#fff;
 }
