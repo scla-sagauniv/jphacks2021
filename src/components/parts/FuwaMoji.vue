@@ -35,9 +35,9 @@
 </script>
 
 <style scoped lang="scss">
-    // span {
-    //     display:table-cell;
-    // }
+    span {
+        display:inline-block;
+    }
     .fuwa {
         animation: fuwa;
         animation-duration: 8s;
