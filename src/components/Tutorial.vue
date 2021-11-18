@@ -1,14 +1,35 @@
 <template>
     <div id="overlay">
         <div id="content">
-            <p>これがモーダルウィンドウです。</p>
-            <button v-on:click="close">close</button>
+            <fuwa-moji v-for="(char, i) in '遊び方'.split('')" :key="i" :char="char" :index="i" id="fuwa_title"></fuwa-moji>
+            <ul>
+                <li>1. 問題のcategoryと問題数を選ぼう！</li>
+                <li>2. Start Gameボタンをclick!!!しよう！</li>
+                <li>3. Spaceを押してTyping start!!!だ！</li>
+                <li>・問題文は一定時間で消えてしまうから，急いで入力してenterをpush!!!だ！</li>
+                <li>・問題文はenterをpush!!!すると，またしばらく表示されるぞ！</li>
+                <li>4. 間違いが少ないと高得点が獲得できるぞ！！</li>
+                <li>5. Twitterボタンをclick!!!して自分の実力を友達に見せびらかそう！！</li>
+            </ul>
+            <p>以上だ！！</p>
+            <p>======================!!!!注意!!!!======================</p>
+            <span>半角スペースは</span>
+            <fuwa-moji :char="' '" :index=1 id="fuwa_m"></fuwa-moji>
+            <span>全角スペースは</span>
+            <fuwa-moji :char="'　'" :index=1 id="fuwa_m"></fuwa-moji>
+            <span>と表示されるので注意しよう！</span>
+            <br>
+            <b-button v-on:click="close" id="cloce" variant="primary">close</b-button>
         </div>
     </div>
 </template>
 
 <script>
+    import FuwaMoji from './parts/FuwaMoji'
     export default {
+        components:{
+            FuwaMoji
+        },
         methods:{
             close(){
                 this.$emit('close')
@@ -20,10 +41,35 @@
 
 
 <style scoped lang="scss">
+p{
+    margin: 0;
+}
+
+ul{
+    list-style: none;
+    text-align: left;
+    margin-left: 0px;
+}
+
+#fuwa_m{
+    font-size: 30px;
+    display: inline-block;
+}
+
+#fuwa_title{
+    font-size: 40px;
+    display: inline-block;
+}
+
+#close{
+    position: absolute;
+
+}
+
 #content{
   z-index:10;
-  width:50%;
-  height: 50%;
+  width:42%;
+  height: 60%;
   padding: 1em;
   background:#fff;
 }
