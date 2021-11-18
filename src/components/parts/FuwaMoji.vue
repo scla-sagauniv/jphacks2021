@@ -1,11 +1,12 @@
 <template>
-    <span v-bind:class="klass" :style="style">{{char}}</span>
+  <span v-if="char_map.ruby" v-bind:class="klass" :style="style"><ruby>{{char_map.word}}<rt>{{char_map.ruby}}</rt></ruby></span>
+  <span v-else v-bind:class="klass" :style="style">{{char_map.word}}</span>
 </template>
 
 <script>
   export default {
     name: 'Strings',
-    props: ['char', 'index'],
+    props: ['char_map', 'index'],
     data() {
       return {
         style: {
@@ -14,6 +15,9 @@
         klass: [],
       }
     },
+    created() {
+      console.log(this.char_map)
+    },
     mounted() {
       const isOdd = (this.index&1) === 1
       if (isOdd) {
@@ -21,11 +25,11 @@
       } else {
         this.klass = ['fuwa2']
       }
-      if (this.char === " ") {
+      if (this.cha_map.word === " ") {
         this.char = "･";
         this.klass.push("-is-space")
       }
-      else if (this.char === "　") {
+      else if (this.char.word === "　") {
         this.char = "〇";
         this.klass.push("-is-space")
       }
@@ -34,9 +38,9 @@
 </script>
 
 <style scoped lang="scss">
-    span {
-        display:table-cell;
-    }
+    // span {
+    //     display:table-cell;
+    // }
     .fuwa {
         animation: fuwa;
         animation-duration: 8s;

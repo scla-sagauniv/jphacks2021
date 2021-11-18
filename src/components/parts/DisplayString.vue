@@ -1,7 +1,7 @@
 <template>
     <transition appear name="fade">
-        <div v-if="fade_f" :style="style">
-            <fuwa-moji v-for="(char, i) in string" :key="i" :char="char" :index="i"></fuwa-moji>
+        <div v-if="fade_f" class="disp-fuwa">
+            <fuwa-moji v-for="(char_map, i) in string" :key="i" :char_map="char_map" :index="i"></fuwa-moji>
         </div>
     </transition>
 </template>
@@ -21,14 +21,9 @@
       }
     },
     computed: {
-      style(){
-        return {
-          opacity: 0,
-          right: this.right + 'px',
-        }
-      },
       string() {
-        return this.$store.state.displayString.substr(0, 12).split('')
+        console.log(this.$store.state.displayString)
+        return this.$store.state.displayString.slice(0, 12)
       },
       type_count() {
         return this.$store.state.type_count
@@ -55,6 +50,11 @@
         text-align: center;
         position: relative;
         display: table;
+    }
+
+    .disp-fuwa {
+      opacity: 0;
+      white-space: nowrap;
     }
 
     .fade-enter-active {
