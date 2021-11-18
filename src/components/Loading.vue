@@ -20,7 +20,11 @@ export default {
   components: {
     VueLoading,
   },
-
+  data() {
+    return {
+      loading: true
+    }
+  }
 }
 </script>
 
