@@ -22,7 +22,6 @@
     },
     computed: {
       string() {
-        console.log(this.$store.state.displayString)
         return this.$store.state.displayString.slice(0, 12)
       },
       type_count() {

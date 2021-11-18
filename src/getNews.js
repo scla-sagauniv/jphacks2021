@@ -8,8 +8,6 @@ async function getNews(pageNumber, categorySelect){
 
   let res = await fetch(url);
   let json = await res.json();
-  console.log(json)
-  console.log(json.articles)
   for(let i = 0; i < json.articles.length; i++){
     // res = await toHiragana(json.articles[i].title)
     // for_input = await toRome(res, 'kunrei')
@@ -21,7 +19,6 @@ async function getNews(pageNumber, categorySelect){
     mondai_list.push({mondaiString: json.articles[i].title, mondaiUrl: json.articles[i].url, displayString: json.articles[i].title, inputString: "for_input", mondaiImage: json.articles[i].urlToImage});
   }
   mondai_list = await addRuby(mondai_list)
-  console.log(mondai_list)
   return mondai_list
 }
 export default getNews

@@ -66,7 +66,6 @@
       for (let i = 0; i < title_str.length; i++) {
         this.title.push({word: title_str[i], ruby: undefined})
       }
-      console.log(this.title)
     },
     methods: {
       gameinit() {

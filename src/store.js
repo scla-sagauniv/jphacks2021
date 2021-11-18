@@ -47,7 +47,6 @@ export default new Vuex.Store({
       state.mondaiString[0] = ''
       state.mondaiString[1] = mondai.mondaiString
       state.displayString = mondai.furigana
-      console.log(state.displayString)
       state.strings = mondai.inputString.split('')
       //type_sizeを決める
       //題名のpx
@@ -71,7 +70,6 @@ export default new Vuex.Store({
       }
       text = text.split('');
       while(text.length > 0) {
-        console.log("外のif前", state.displayString[0].word, state.displayString[0].word.length)
         if (state.displayString[0].word.length > 1) {
           let word_list = state.displayString[0].word.split('');
           while(word_list.length > 0) {
@@ -80,7 +78,6 @@ export default new Vuex.Store({
               text.shift();
               state.typeSuccessCount++;
               n++;
-              console.log("中のwhile:", n, word_list)
             }
             else {
               remainder = word_list.join('')
@@ -95,7 +92,6 @@ export default new Vuex.Store({
               }
             }
           }
-          console.log("中のwhile後:", state.displayString, remainder.length)
           if (remainder.length === 0) {
             state.displayString.shift();
           }
@@ -109,7 +105,6 @@ export default new Vuex.Store({
             text.shift();
             state.typeSuccessCount++;
             n++;
-            console.log("外のelse:", n)
             if(state.displayString.length == 0) {
               break;
             }
@@ -119,7 +114,6 @@ export default new Vuex.Store({
           }
         }
       }
-      console.log("外のwhile", state.displayString)
       // state.displayString = state.displayString.join('');
       state.mondaiString[0] += state.mondaiString[1].substr(0, n);
       state.mondaiString[1] = state.mondaiString[1].substr(n);

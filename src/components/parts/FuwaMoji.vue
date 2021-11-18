@@ -15,9 +15,6 @@
         klass: [],
       }
     },
-    created() {
-      console.log(this.char_map)
-    },
     mounted() {
       const isOdd = (this.index&1) === 1
       if (isOdd) {
