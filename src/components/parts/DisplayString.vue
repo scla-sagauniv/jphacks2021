@@ -1,9 +1,12 @@
 <template>
-    <transition appear name="fade">
-        <div v-if="fade_f" :style="style">
-            <fuwa-moji v-for="(char, i) in string" :key="i" :char="char" :index="i"></fuwa-moji>
+    <transition appear v-if="$store.state.isGameStart" name="fade">
+        <div v-if="fade_f" class="disp-fuwa">
+            <fuwa-moji v-for="(char_map, i) in string" :key="i" :char_map="char_map" :index="i"></fuwa-moji>
         </div>
     </transition>
+    <div v-else>
+        <fuwa-moji v-for="(char_map, i) in string" :key="i" :char_map="char_map" :index="i"></fuwa-moji>
+    </div>
 </template>
 
 <script>
@@ -21,14 +24,8 @@
       }
     },
     computed: {
-      style(){
-        return {
-          opacity: 0,
-          right: this.right + 'px',
-        }
-      },
       string() {
-        return this.$store.state.displayString.substr(0, 12).split('')
+        return this.$store.state.displayString.slice(0, 12)
       },
       type_count() {
         return this.$store.state.type_count
@@ -51,10 +48,15 @@
 <style scoped lang="scss">
     div {
         font-size: 50px;
-        margin: 70px auto 0 auto;
+        margin: 30px auto 0 auto;
         text-align: center;
         position: relative;
         display: table;
+    }
+
+    .disp-fuwa {
+      opacity: 0;
+      white-space: nowrap;
     }
 
     .fade-enter-active {

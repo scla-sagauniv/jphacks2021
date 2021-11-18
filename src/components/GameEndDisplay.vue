@@ -26,6 +26,7 @@
           </b-row>
         </b-container>
         <br>
+        <br>
         <h3>カテゴリー</h3>
         <b-container>
           <b-row>
@@ -123,7 +124,7 @@
         text += "合計タイプ文字数 : " + this.totalTypeCount + "\n"
         text += "Score : " + this.resultScore + "\n"
         text += "サイトURL : " + "https://news-typing-scla.herokuapp.com/\n"
-        text += "すごい!!!\n"
+        text += this.create_score_text(this.resultScore) + "\n"
         text += "#N_Typing #SCLA"
         let twitter_share_url = "https://twitter.com/intent/tweet?" + "text=" + encodeURIComponent(text);
         window.open(twitter_share_url, '_blank')
@@ -131,6 +132,24 @@
       toNews(url){
         window.open(url, '_blank')
       },
+      create_score_text(score){
+        //スコアによって変動するテキストを作成するぞ
+        let text = ["まあまあすごい","けっこうすごい","すごい!!!","ちょっとヤバい","ヤバい","ヤバすぎ","アルティメットヤバい","パーフェクトヤバい"]
+        let selected_text = ""
+        for (let i = 0; i < text.length - 1; i++){
+          if (score <= (i + 1) * 5000){
+            selected_text = text[i]
+            break
+          }
+        }
+        if(selected_text == ""){
+          selected_text = text[text.length - 2] 
+        }
+        if(this.missSubmit == 0){
+          selected_text = text[text.length - 1]
+        }
+        return selected_text
+      }
     }
   }
 </script>
@@ -138,7 +157,7 @@
 <style scoped lang="scss">
     .gameDisplay {
         width: 1000px;
-        height: 700px;
+        height: 800px;
         border: 5px solid #CCC;
         margin: auto;
         position: relative;

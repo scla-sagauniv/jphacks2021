@@ -1,7 +1,8 @@
 <template>
     <div class="gameDisplay">
+          <b-button variant="primary" @click="open_tutorial" id="tutorial">tutorial</b-button>
         <h1>
-            <fuwa-moji v-for="(char, i) in title" :key="i" :char="char" :index="i"></fuwa-moji>
+            <fuwa-moji v-for="(char_map, i) in title" :key="i" :char_map="char_map" :index="i"></fuwa-moji>
         </h1>
         <br>
         <h3>カテゴリー</h3>
@@ -26,20 +27,23 @@
         </b-container>
         <br>
         <b-button variant="primary" @click="gameStart">Start Game</b-button>
+        <tutorial v-show="tutorial_page" v-on:close="close_tutorial"></tutorial>
     </div>
 </template>
 
 <script>
   import FuwaMoji from './parts/FuwaMoji'
   import getNews from '@/getNews'
+  import Tutorial from './Tutorial'
   export default {
     name: 'GameStartDisplay',
     components: {
         FuwaMoji,
+        'tutorial':Tutorial,
     },
     data() {
         return {
-          title: 'News-Typing'.split(''),
+          title: [],
           categorySelect: 'general',
           categorySelects: [
             { value: 'general', text: '一般' },
@@ -58,23 +62,45 @@
             { value: '50', text: '50' },
             { value: '100', text: '100' }
           ],
+          tutorial_page: false,
         }
     },
+    created() {
+      this.gameinit()
+      let title_str = 'N-Typing'.split('')
+      for (let i = 0; i < title_str.length; i++) {
+        this.title.push({word: title_str[i], ruby: undefined})
+      }
+    },
     methods: {
-      gameStart() {
+      gameinit() {
         getNews(this.pageNumber, this.categorySelect).then((res) => {
           this.$store.commit("initMondai", {mondai_list: res, category: this.categorySelect, page: this.pageNumber})
-          this.$emit('game-start')
         })
+      },
+      open_tutorial() {
+        this.tutorial_page = true;
+      },
+      close_tutorial(){
+        this.tutorial_page = false;
+      },
+      gameStart() {
+        this.$emit('game-start')
       },
     }
   }
 </script>
 
 <style scoped lang="scss">
+    #tutorial{
+      white-space:nowrap;
+      position:absolute;
+      top: 20px;
+      left: 900px;
+    }
     .gameDisplay {
         width: 1000px;
-        height: 700px;
+        height: 800px;
         border: 5px solid #CCC;
         margin: auto;
         position: relative;
