@@ -56,12 +56,12 @@
       text-align: left;
     }
     .img-box {
-
+        border: 2px solid #d3d3d3;
     }
     .img-size {
-        padding: 10px;
-        width: 700px;
-        height: 300px;
+          width:55%;
+          height: 300px;
+          object-fit: contain;
     }
     .done {
       color: red;
