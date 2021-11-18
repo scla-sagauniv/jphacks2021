@@ -26,6 +26,7 @@
           </b-row>
         </b-container>
         <br>
+        <br>
         <h3>カテゴリー</h3>
         <b-container>
           <b-row>
@@ -156,7 +157,7 @@
 <style scoped lang="scss">
     .gameDisplay {
         width: 1000px;
-        height: 700px;
+        height: 800px;
         border: 5px solid #CCC;
         margin: auto;
         position: relative;

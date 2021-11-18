@@ -1,5 +1,6 @@
 import toHiragana from "./toHiragana"
 import toRome from "./toRome"
+import addRuby from "./addRuby"
 async function getNews(pageNumber, categorySelect){
 
   let mondai_list = [], for_input;
@@ -7,8 +8,6 @@ async function getNews(pageNumber, categorySelect){
 
   let res = await fetch(url);
   let json = await res.json();
-  console.log(json)
-  console.log(json.articles)
   for(let i = 0; i < json.articles.length; i++){
     // res = await toHiragana(json.articles[i].title)
     // for_input = await toRome(res, 'kunrei')
@@ -17,8 +16,9 @@ async function getNews(pageNumber, categorySelect){
     if (json.articles[i].author != null) {
       json.articles[i].title = json.articles[i].title.replace(`（${json.articles[i].author}）`, "")
     }
-    mondai_list.push({mondaiString: json.articles[i].title, mondaiUrl: json.articles[i].url, displayString: json.articles[i].title, inputString: "for_input"});
+    mondai_list.push({mondaiString: json.articles[i].title, mondaiUrl: json.articles[i].url, displayString: json.articles[i].title, inputString: "for_input", mondaiImage: json.articles[i].urlToImage});
   }
+  mondai_list = await addRuby(mondai_list)
   return mondai_list
 }
 export default getNews

@@ -12,7 +12,6 @@
    } else if (mode == 'hebon') {
      result = kanaToRoman(text, null, {longSound:'hyphen'});
    } else {
-     console.log("invalid mode:" + mode);
      return 0;
    }
    result = full2half(result)

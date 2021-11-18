@@ -2,6 +2,11 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 import {_} from 'vue-underscore'
 
+let start_msg = "スペースキーでスタート！".split('')
+for (let i = 0; i < start_msg.length; i++) {
+  start_msg[i] = {word: start_msg[i], ruby: undefined}
+}
+
 Vue.use(Vuex)
 
 export default new Vuex.Store({
@@ -9,7 +14,7 @@ export default new Vuex.Store({
     interval: 90,
     strings: [],
     mondaiString: ['', ''],
-    displayString: 'スペースキーでスタート！',
+    displayString: start_msg,
     inputStrings: null,
     inputStringsBase: null,
     selected: {category: null, page: null},
@@ -20,9 +25,11 @@ export default new Vuex.Store({
     typeSuccessCount: 0,
     startTime: null,
     endTime: null,
+    isGameStart: false,
     isGameClear: false,
     type_count: 0,
     type_size: 100,
+    mondaiImage: ''
   },
   mutations: {
     initMondai(state, init_param) {
@@ -40,7 +47,7 @@ export default new Vuex.Store({
       }
       state.mondaiString[0] = ''
       state.mondaiString[1] = mondai.mondaiString
-      state.displayString = mondai.displayString
+      state.displayString = mondai.furigana
       state.strings = mondai.inputString.split('')
       //type_sizeを決める
       //題名のpx
@@ -52,24 +59,63 @@ export default new Vuex.Store({
       //stringsの数
       let s_c = state.strings.length
       state.type_size = k / s_c;
+      // イメージをとってくる
+      state.mondaiImage = mondai.mondaiImage;
     },
     check(state, text) {
       let n = 0;
-      const text_len = text.length
+      let remainder = "";
+      const text_len = text.length;
       if (text_len == 0) {
         return
       }
       text = text.split('');
-      state.displayString = state.displayString.split('');
-      while(state.displayString[0] === text.shift()) {
-        state.displayString.shift();
-        n++;
-        state.typeSuccessCount++;
-        if(state.displayString.length == 0) {
-          break;
+      while(text.length > 0) {
+        if (state.displayString[0].word.length > 1) {
+          let word_list = state.displayString[0].word.split('');
+          while(word_list.length > 0) {
+            if (word_list[0] === text[0]) {
+              word_list.shift();
+              text.shift();
+              state.typeSuccessCount++;
+              n++;
+            }
+            else {
+              remainder = word_list.join('')
+              if (remainder === word_list) {
+                break;
+              }
+              else {
+                let tmp = {word: remainder, ruby: undefined};
+                state.displayString.shift();
+                state.displayString.unshift(tmp);
+                break;
+              }
+            }
+          }
+          if (remainder.length === 0) {
+            state.displayString.shift();
+          }
+          else {
+            break;
+          }
+        }
+        else {
+          if (state.displayString[0].word === text[0]) {
+            state.displayString.shift();
+            text.shift();
+            state.typeSuccessCount++;
+            n++;
+            if(state.displayString.length == 0) {
+              break;
+            }
+          }
+          else {
+            break;
+          }
         }
       }
-      state.displayString = state.displayString.join('');
+      // state.displayString = state.displayString.join('');
       state.mondaiString[0] += state.mondaiString[1].substr(0, n);
       state.mondaiString[1] = state.mondaiString[1].substr(n);
       state.onEnter++;
@@ -79,6 +125,7 @@ export default new Vuex.Store({
     },
     start(state) {
       state.startTime = Date.now();
+      state.isGameStart = true;
     },
     typeMiss(state) {
       state.missCount++
@@ -98,7 +145,7 @@ export default new Vuex.Store({
       state.onEnter = 0
       state.missEnter = 0
       state.mondaiString = ['', '']
-      state.displayString = 'スペースキーでスタート！'
+      state.displayString = start_msg
     },
     decrementInterval(state, decrement) {
       state.interval -= decrement
