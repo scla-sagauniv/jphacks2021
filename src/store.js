@@ -81,7 +81,7 @@ export default new Vuex.Store({
             }
             else {
               remainder = word_list.join('')
-              if (remainder === word_list) {
+              if (remainder === state.displayString[0].word) {
                 break;
               }
               else {
