@@ -50,10 +50,13 @@
         <br>
         <b-button variant="primary" @click="gameStart">Retry</b-button>
         <br>
-        <b-button variant="primary" @click="shareTwitter">Twitter共有</b-button>
+        <a v-bind:href="href_title" target="_blank" rel="noopener noreferrer" @click="shareTwitter" class="twitter-share-button" data-show-count="false">
+        <img src="../assets/Twitter social icons - rounded square - blue.svg">
+        </a>
     </div>
 </template>
 
+<script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
 <script>
   import getNews from '@/getNews'
   export default {
@@ -103,6 +106,7 @@
           missSubmit: this.$store.state.missEnter,
           totalTime: Math.floor((this.$store.state.endTime - this.$store.state.startTime) / 100) / 10, // ミリ秒なので小数第一位までの秒に変換して
           resultScore: 0,
+          href_title: "test",
         }
     },
     mounted() {
@@ -127,7 +131,8 @@
         text += this.create_score_text(this.resultScore) + "\n"
         text += "#N_Typing #SCLA"
         let twitter_share_url = "https://twitter.com/intent/tweet?" + "text=" + encodeURIComponent(text);
-        window.open(twitter_share_url, '_blank')
+        this.href_title = twitter_share_url;
+        // window.open(twitter_share_url, '_blank')
       },
       toNews(url){
         window.open(url, '_blank')
@@ -189,6 +194,11 @@
       position: relative;
       font-size: 27px;
       margin: 5px 0px;
+    }
+    img {
+      margin-top: 20px;
+      width: 5%;
+      height: 5%;
     }
     .score-titles {
         position: absolute;
