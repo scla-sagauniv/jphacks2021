@@ -25,9 +25,17 @@
             </b-col>
           </b-row>
         </b-container>
-        <br>
-        <br>
-        <h3>カテゴリー</h3>
+        <h3>国</h3>
+        <b-container>
+          <b-row>
+            <b-col col lg="4"></b-col>
+            <b-col>
+              <b-form-select class="text-center" v-model="country" :options="countrySelects"></b-form-select>
+            </b-col>
+            <b-col col lg="4"></b-col>
+          </b-row>
+        </b-container>
+        <h3 class="mt-3">カテゴリー</h3>
         <b-container>
           <b-row>
             <b-col col lg="4"></b-col>
@@ -84,6 +92,11 @@
     },
     data() {
         return {
+          country: this.$store.state.selected.country,
+          countrySelects: [
+            { value: 'jp', text: '日本' },
+            { value: 'us', text: 'アメリカ' },
+          ],
           categorySelect: this.$store.state.selected.category,
           categorySelects: [
             { value: 'general', text: '一般' },
@@ -114,7 +127,7 @@
     },
     methods: {
       gameStart() {
-        getNews(this.pageNumber, this.categorySelect).then((res) => {
+        getNews(this.country, this.pageNumber, this.categorySelect).then((res) => {
           this.$store.commit("initMondai", {mondai_list: res, category: this.categorySelect, page: this.pageNumber})
           this.$store.commit("resetAll")
           this.$emit('game-start')
