@@ -2,8 +2,8 @@
     <div class="news-box">
         <div id="title-box">
           <p>【{{$store.state.successStage + 1}}問目のニュースタイトル】</p>
-          <span class="done">{{mondaiString[0]}}</span>
-          <transition appear name="fade">
+          <span v-if="$store.state.isGameStart" class="done">{{mondaiString[0]}}</span>
+          <transition v-if="$store.state.isGameStart" appear name="fade">
             <span v-if="fade_f" class="doing">
               <span v-for="(char, i) in mondaiString[1]" :key="i" v-bind:class="{'-is-space': char.isSpace}">{{char.char}}</span>
             </span>
@@ -47,6 +47,7 @@
         this.createMondai();
       },
       onEnter() {
+        console.log("fade")
         this.fade_f = !this.fade_f;
         this.$nextTick(function() {
           this.fade_f = !this.fade_f;
