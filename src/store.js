@@ -17,7 +17,7 @@ export default new Vuex.Store({
     displayString: start_msg,
     inputStrings: null,
     inputStringsBase: null,
-    selected: {category: null, page: null},
+    selected: {country: null, category: null, page: null},
     successStage: 0,
     onEnter: 0,
     missEnter: 0,
@@ -35,6 +35,7 @@ export default new Vuex.Store({
     initMondai(state, init_param) {
       state.inputStrings = _.shuffle(init_param.mondai_list)
       state.inputStringsBase = state.inputStrings.concat()
+      state.selected.country = init_param.country
       state.selected.category = init_param.category
       state.selected.page = init_param.page
     },
