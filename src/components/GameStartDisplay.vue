@@ -39,6 +39,7 @@
         <br>
         <b-button variant="primary" @click="gameStart">Start Game</b-button>
         <tutorial v-show="tutorial_page" v-on:close="close_tutorial"></tutorial>
+        <select-again v-show="select_page" v-on:close_select="close_select" :country="country" :pageNumber="pageNumber" :category="categorySelect"></select-again>
     </div>
 </template>
 
@@ -46,11 +47,14 @@
   import FuwaMoji from './parts/FuwaMoji'
   import getNews from '@/getNews'
   import Tutorial from './Tutorial'
+  import SelectAgain from './SelectAgain.vue'
+
   export default {
     name: 'GameStartDisplay',
     components: {
         FuwaMoji,
         'tutorial':Tutorial,
+        SelectAgain,
     },
     data() {
         return {
@@ -79,6 +83,7 @@
             { value: '20', text: '20' },
           ],
           tutorial_page: false,
+          select_page: false,
         }
     },
     created() {
@@ -86,7 +91,6 @@
       for (let i = 0; i < title_str.length; i++) {
         this.title.push({word: title_str[i], ruby: undefined})
       }
-
       if(this.first_tutorial()){
         this.tutorial_page = true;
       }
@@ -95,7 +99,12 @@
       gameStart() {
         getNews(this.country, this.pageNumber, this.categorySelect).then((res) => {
           this.$store.commit("initMondai", {mondai_list: res, country: this.country, category: this.categorySelect, page: this.pageNumber})
-          this.$emit('game-start')
+          if (this.$store.state.inputStrings.length < this.pageNumber) {
+            this.select_page = true
+          }
+          else {
+            this.$emit('game-start')
+          }
         })
       },
       open_tutorial() {
@@ -103,6 +112,17 @@
       },
       close_tutorial(){
         this.tutorial_page = false;
+      },
+      close_select() {
+        this.select_page = false;
+        if (this.$store.state.inputStrings.length < this.$store.state.selected.page) {
+          setTimeout(() => {
+          this.select_page = true;
+        }, 1000) 
+        }
+        else {
+          this.$emit('game-start')
+        }
       },
       first_tutorial(){
         const name = "visit";
