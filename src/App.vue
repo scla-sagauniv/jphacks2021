@@ -3,7 +3,7 @@
       <loading v-show="loading"></loading>
       <span v-show="!loading" id="ruler" style="visibility:hidden;position:absolute;white-space:nowrap;"></span>
       <div class="wall"></div>
-      <component v-show="!loading" v-bind:is="currentComponent" v-on:game-start="gameStart"></component>
+      <component v-show="!loading" v-bind:is="currentComponent" v-on="{game_start: gameStart, show_title: showTitle}"></component>
       <div class="wall"></div>
   </div>
 </template>
@@ -54,6 +54,10 @@ export default {
       this.$store.commit('resetAll')
       this.currentComponent = GameDisplay
     },
+    showTitle() {
+      this.$store.commit('resetAll')
+      this.currentComponent = GameStartDisplay
+    }
   }
 }
 </script>
