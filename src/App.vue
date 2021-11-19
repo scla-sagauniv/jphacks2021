@@ -2,7 +2,9 @@
   <div id="app">
       <loading v-show="loading"></loading>
       <span v-show="!loading" id="ruler" style="visibility:hidden;position:absolute;white-space:nowrap;"></span>
+      <div class="left-wall"></div>
       <component v-show="!loading" v-bind:is="currentComponent" v-on:game-start="gameStart"></component>
+      <div class="right-wall"></div>
   </div>
 </template>
 
@@ -64,5 +66,18 @@ export default {
   text-align: center;
   color: #2c3e50;
   margin-top: 40px;
+  display:flex;
+}
+.left-wall {
+  width: 350px;
+  height: 800px;
+  background-color: white;
+  z-index: 3;
+}
+.right-wall {
+  width: 350px;
+  height: 800px;
+  background-color: white;
+  z-index: 3;
 }
 </style>

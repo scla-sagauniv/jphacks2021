@@ -102,7 +102,7 @@
         width: 1000px;
         height: 800px;
         border: 5px solid #CCC;
-        margin: auto;
+        margin: 0;
         position: relative;
     }
     h1 {
