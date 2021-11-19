@@ -1,6 +1,6 @@
 <template>
     <div class="gameDisplay">
-          <b-button variant="primary" @click="open_tutorial" id="tutorial">tutorial</b-button>
+          <b-button variant="primary" @click="open_tutorial" id="tutorial">Tutorial</b-button>
         <h1 class="game-title">
             <fuwa-moji v-for="(char_map, i) in title" :key="i" :char_map="char_map" :index="i"></fuwa-moji>
         </h1>
