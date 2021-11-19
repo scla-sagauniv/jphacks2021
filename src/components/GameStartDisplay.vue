@@ -72,6 +72,7 @@
           ],
           pageNumber: '5',
           pageNumbers: [
+            { value: '3', text: '3' },
             { value: '5', text: '5' },
             { value: '10', text: '10' },
             { value: '15', text: '15' },
