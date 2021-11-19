@@ -1,6 +1,6 @@
-# N-Typing(ニュースタイピング)
+# サンプル（プロダクト名）
 
-[![IMAGE ALT TEXT HERE](home.png)](https://www.youtube.com/watch?v=LUPQFB4QyVo)
+[![IMAGE ALT TEXT HERE](https://jphacks.com/wp-content/uploads/2021/07/JPHACKS2021_ogp.jpg)](https://www.youtube.com/watch?v=LUPQFB4QyVo)
 
 ## 製品概要
 ### デプロイ先
@@ -26,8 +26,8 @@ https://news-typing-scla.herokuapp.com/
 ## 開発技術
 ### 活用した技術
 #### API・データ
-* [NewsAPI](https://newsapi.org/)
-* YahooAPI:[ルビ振り](https://developer.yahoo.co.jp/webapi/jlp/furigana/v2/furigana.html)
+* gooラボAPI:ひらがな化API
+* NewsAPI
 
 #### フレームワーク・ライブラリ・モジュール
 * vue
@@ -43,3 +43,4 @@ https://news-typing-scla.herokuapp.com/
 #### ハッカソンで開発した独自機能・技術
 * GOを利用したAPIサーバ
 * ニュースを所得して成形するAPI
+* 特に力を入れた部分をファイルリンク、またはcommit_idを記載してください。
