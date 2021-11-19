@@ -41,6 +41,7 @@
         style: {},
         klass: [],
         input: "",
+        audio: new Audio(require('@/assets/miss.mp3'))
       }
     },
     mounted() {
@@ -48,12 +49,13 @@
     },
     computed: {
       missCount() {
-        return this.$store.state.missCount
+        return this.$store.state.missEnter
       }
     },
     watch: {
       missCount() {
         this.klass = ['damaged']
+        this.audio.play()
         setTimeout(() => {
           this.klass = []
         }, 200)
@@ -99,8 +101,8 @@
     }
     @keyframes damage {
         0% {
-            background : #CCC;
-            opacity: 0.1;
+            background : rgb(255, 0, 0);
+            opacity: 0.2;
         }
         100% {
             background : #FFF;
