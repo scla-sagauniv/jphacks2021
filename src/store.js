@@ -41,7 +41,7 @@ export default new Vuex.Store({
     },
     addMondai(state, add_param) {
       state.inputStrings = state.inputStrings.concat(_.shuffle(add_param.mondai_list))
-      state.inputStringsBase = state.selected.country.concat(state.inputStrings.concat())
+      state.inputStringsBase = state.inputStrings.concat()
       state.selected.category = add_param.category
     },
     setPageNum(state, page) {
@@ -49,6 +49,7 @@ export default new Vuex.Store({
     },
     choice(state) {
       let mondai = state.inputStrings.shift()
+      state.successStage = state.selected.page - 1
       if (state.successStage+1 == state.selected.page) {
         state.isGameClear = true
         state.endTime = Date.now()
