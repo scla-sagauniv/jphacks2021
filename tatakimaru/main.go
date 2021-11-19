@@ -53,10 +53,11 @@ type resNews struct {
 }
 
 func getNews(ctx *gin.Context) {
+	country := ctx.Query("country")
 	pages := ctx.Query("pageSize")
 	cat := ctx.Query("category")
 	API_KEY := "c49f779b1bad4a778e96648d34e323ab"
-	url := "https://newsapi.org/v2/top-headlines?pageSize="+ pages + "&category=" + cat + "&country=jp&apiKey=" + API_KEY
+	url := "https://newsapi.org/v2/top-headlines?pageSize="+ pages + "&category=" + cat + "&country=" + country + "&apiKey=" + API_KEY
 	
 	res, err := http.Get(url)
 	if err != nil {
