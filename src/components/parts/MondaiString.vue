@@ -32,6 +32,9 @@
       update() {
         return this.$store.state.displayString
       },
+      onEnter() {
+        return this.$store.state.onEnter
+      },
       returnImageUrl() {
         return this.$store.state.mondaiImage;
       }
@@ -42,11 +45,13 @@
           return this.stageClear();
         }
         this.createMondai();
+      },
+      onEnter() {
         this.fade_f = !this.fade_f;
         this.$nextTick(function() {
           this.fade_f = !this.fade_f;
         })
-      },
+      }
     },
     methods: {
       stageClear() {
