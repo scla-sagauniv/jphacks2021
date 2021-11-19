@@ -3,7 +3,7 @@
         <div id="content">
             <div class="msg">
                 ※ニュースの数が足りませんでした <br>
-                （現在{{$store.state.inputStrings.length}}個）
+                （現在{{$store.state.inputStrings.length}}件）
             </div>
             <div>
                 <b-form-checkbox-group
