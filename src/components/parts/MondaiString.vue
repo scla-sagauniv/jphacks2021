@@ -2,10 +2,10 @@
     <div class="news-box">
         <div id="title-box">
           <p>【{{$store.state.successStage + 1}}問目のニュースタイトル】</p>
-          <span v-if="$store.state.isGameStart" class="done">{{mondaiString[0]}}</span>
+          <fuwa-moji class="done" v-for="(char_map, i) in mondaiString[0]" :key="i" :char_map="char_map" :index="i"></fuwa-moji>
           <transition v-if="$store.state.isGameStart" appear name="fade">
-            <span v-if="fade_f" class="doing">
-              <span v-for="(char, i) in mondaiString[1]" :key="i" v-bind:class="{'-is-space': char.isSpace}">{{char.char}}</span>
+            <span v-if="fade_f" style="opacity: 0">
+              <fuwa-moji class="doing" v-for="(char_map, i) in mondaiString[1]" :key="i" :char_map="char_map" :index="i"></fuwa-moji>
             </span>
           </transition>
         </div>
@@ -17,8 +17,12 @@
 </template>
 
 <script>
+import FuwaMoji from './FuwaMoji'
   export default {
     name: 'mondaiString',
+    components: {
+      FuwaMoji
+    },
     data() {
       return {
         fade_f: true,
@@ -47,7 +51,6 @@
         this.createMondai();
       },
       onEnter() {
-        console.log("fade")
         this.fade_f = !this.fade_f;
         this.$nextTick(function() {
           this.fade_f = !this.fade_f;
@@ -62,21 +65,18 @@
       },
       createMondai() {
         this.mondaiString = [];
-        let charList = this.$store.state.mondaiString[1];
-        charList = charList.split('');
-        for (let i=0; i < charList.length; i++) {
-          if (charList[i] === ' ') {
-            charList[i] = {char: '･', isSpace: true};
-          }
-          else if (charList[i] === '　') {
-            charList[i] = {char: '〇', isSpace: true};
-          }
-          else {
-            charList[i] = {char: charList[i], isSpace: false};
-          }
+        let doneList = this.$store.state.mondaiString[0];
+        doneList = doneList.split('');
+        let doingList = this.$store.state.mondaiString[1];
+        doingList = doingList.split('');
+        
+        for (let i = 0; i < doneList.length; i++) {
+          doneList[i] = {word: doneList[i], ruby: undefined}
         }
-        this.mondaiString.push(this.$store.state.mondaiString[0]);
-        this.mondaiString.push(charList);
+        for (let i = 0; i < doingList.length; i++) {
+          doingList[i] = {word: doingList[i], ruby: undefined}
+        }
+        this.mondaiString = [doneList, doingList]
       }
     }
   }
@@ -97,7 +97,6 @@
       text-align: left;
     }
     .img-box {
-        border: 2px solid #d3d3d3;
     }
     .img-size {
           width:55%;
@@ -108,9 +107,11 @@
     }
     .done {
       color: red;
+      font-size: 25px;
+
     }
     .doing {
-      opacity: 0;
+      font-size: 25px;
     }
     .-is-space {
       color: #C0C0C0;
