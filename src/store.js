@@ -45,8 +45,7 @@ export default new Vuex.Store({
         state.endTime = Date.now()
         return
       }
-      state.mondaiString[0] = ''
-      state.mondaiString[1] = mondai.mondaiString
+      state.mondaiString = ['', mondai.mondaiString]
       state.displayString = mondai.furigana
       state.strings = mondai.inputString.split('')
       //type_sizeを決める
@@ -116,8 +115,9 @@ export default new Vuex.Store({
         }
       }
       // state.displayString = state.displayString.join('');
-      state.mondaiString[0] += state.mondaiString[1].substr(0, n);
-      state.mondaiString[1] = state.mondaiString[1].substr(n);
+      let done = state.mondaiString[0] + state.mondaiString[1].substr(0, n);
+      let doing = state.mondaiString[1] = state.mondaiString[1].substr(n);
+      state.mondaiString = [done, doing]
       state.onEnter++;
       if (text_len > n) {
         state.missEnter++
