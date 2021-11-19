@@ -64,7 +64,10 @@
 
     .disp-fuwa {
       opacity: 0;
+      width: 1000px;
       white-space: nowrap;
+      position: relative;
+      z-index: 1;
     }
 
     .fade-enter-active {

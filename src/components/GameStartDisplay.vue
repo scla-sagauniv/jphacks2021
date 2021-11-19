@@ -1,7 +1,7 @@
 <template>
     <div class="gameDisplay">
           <b-button variant="primary" @click="open_tutorial" id="tutorial">tutorial</b-button>
-        <h1>
+        <h1 class="game-title">
             <fuwa-moji v-for="(char_map, i) in title" :key="i" :char_map="char_map" :index="i"></fuwa-moji>
         </h1>
         <br>
@@ -112,6 +112,9 @@
         text-align: center;
         position: relative;
         display: table;
+    }
+    .game-title {
+      width: 1000px
     }
     .select {
         display: flex;
