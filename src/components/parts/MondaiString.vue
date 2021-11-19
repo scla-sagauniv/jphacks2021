@@ -99,6 +99,7 @@ import FuwaMoji from './FuwaMoji'
     }
     #title-box {
       text-align: left;
+      user-select: none;
     }
     .img-box {
     }
@@ -106,8 +107,6 @@ import FuwaMoji from './FuwaMoji'
           width:55%;
           height: 300px;
           object-fit: contain;
-          /*何これ*/
-          user-select: none;
     }
     .done {
       color: red;
