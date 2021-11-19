@@ -9,8 +9,12 @@
             </span>
           </transition>
         </div>
+        <!-- ここがリスタートボタンを押した際に適応されないのどうにかしてちょ、、 -->
+        <div v-if="!$store.state.isGameStart">
+            <img src="https://1.bp.blogspot.com/-D2I7Z7-HLGU/Xlyf7OYUi8I/AAAAAAABXq4/jZ0035aDGiE5dP3WiYhlSqhhMgGy8p7zACNcBGAsYHQ/s400/no_image_square.jpg" class="img-size">
+        </div>
         <!-- 動画のリンクだと切れます -->
-        <div class="img-box">
+        <div v-else class="img-box">
           <img :src="returnImageUrl" class="img-size" style="display: block; margin: auto;">
         </div>
     </div>
@@ -95,6 +99,7 @@ import FuwaMoji from './FuwaMoji'
     }
     #title-box {
       text-align: left;
+      user-select: none;
     }
     .img-box {
     }
@@ -102,8 +107,6 @@ import FuwaMoji from './FuwaMoji'
           width:55%;
           height: 300px;
           object-fit: contain;
-          /*何これ*/
-          user-select: none;
     }
     .done {
       color: red;

@@ -68,6 +68,7 @@
       white-space: nowrap;
       position: relative;
       z-index: 1;
+      user-select: none;
     }
 
     .fade-enter-active {

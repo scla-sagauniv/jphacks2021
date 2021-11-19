@@ -25,35 +25,15 @@
             </b-col>
           </b-row>
         </b-container>
+        <b-button variant="primary" @click="gameStart" size="lg" class="retry">Retry</b-button>
         <br>
-        <br>
-        <h3>カテゴリー</h3>
-        <b-container>
-          <b-row>
-            <b-col col lg="4"></b-col>
-            <b-col>
-              <b-form-select class="text-center" cols="8" md="auto" v-model="categorySelect" :options="categorySelects"></b-form-select>
-            </b-col>
-            <b-col col lg="4"></b-col>
-          </b-row>
-        </b-container>
-        <h3 class="mt-3">問題数</h3>
-        <b-container>
-          <b-row>
-            <b-col col lg="4"></b-col>
-            <b-col>
-              <b-form-select class="text-center" v-model="pageNumber" :options="pageNumbers"></b-form-select>
-            </b-col>
-            <b-col col lg="4"></b-col>
-          </b-row>
-        </b-container>
-        <br>
-        <b-button variant="primary" @click="gameStart">Retry</b-button>
-        <br>
-        <b-button variant="primary" @click="shareTwitter">Twitter共有</b-button>
+        <a v-bind:href="href_title" target="_blank" rel="noopener noreferrer" @click="shareTwitter" class="twitter-share-button" data-show-count="false">
+        <img src="../assets/Twitter social icons - rounded square - blue.svg">
+        </a>
     </div>
 </template>
 
+<script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
 <script>
   import getNews from '@/getNews'
   export default {
@@ -81,6 +61,11 @@
     },
     data() {
         return {
+          country: this.$store.state.selected.country,
+          countrySelects: [
+            { value: 'jp', text: '日本' },
+            { value: 'us', text: 'アメリカ' },
+          ],
           categorySelect: this.$store.state.selected.category,
           categorySelects: [
             { value: 'general', text: '一般' },
@@ -103,6 +88,7 @@
           missSubmit: this.$store.state.missEnter,
           totalTime: Math.floor((this.$store.state.endTime - this.$store.state.startTime) / 100) / 10, // ミリ秒なので小数第一位までの秒に変換して
           resultScore: 0,
+          href_title: "test",
         }
     },
     mounted() {
@@ -110,10 +96,10 @@
     },
     methods: {
       gameStart() {
-        getNews(this.pageNumber, this.categorySelect).then((res) => {
-          this.$store.commit("initMondai", {mondai_list: res, category: this.categorySelect, page: this.pageNumber})
+        getNews(this.country, this.pageNumber, this.categorySelect).then((res) => {
           this.$store.commit("resetAll")
-          this.$emit('game-start')
+          this.$store.commit("initMondai", {mondai_list: res, category: this.categorySelect, page: this.pageNumber})
+          this.$emit('show_title')
         })
       },
       shareTwitter() {
@@ -127,7 +113,8 @@
         text += this.create_score_text(this.resultScore) + "\n"
         text += "#N_Typing #SCLA"
         let twitter_share_url = "https://twitter.com/intent/tweet?" + "text=" + encodeURIComponent(text);
-        window.open(twitter_share_url, '_blank')
+        this.href_title = twitter_share_url;
+        // window.open(twitter_share_url, '_blank')
       },
       toNews(url){
         window.open(url, '_blank')
@@ -190,6 +177,11 @@
       font-size: 27px;
       margin: 5px 0px;
     }
+    img {
+      margin-top: 20px;
+      width: 5%;
+      height: 5%;
+    }
     .score-titles {
         position: absolute;
         left: 0;
@@ -200,5 +192,8 @@
     }
     .-result {
         color: red
+    }
+    .retry {
+      margin-top: 100px
     }
 </style>

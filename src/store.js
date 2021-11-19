@@ -17,7 +17,7 @@ export default new Vuex.Store({
     displayString: start_msg,
     inputStrings: null,
     inputStringsBase: null,
-    selected: {category: null, page: null},
+    selected: {country: null, category: null, page: null},
     successStage: 0,
     onEnter: 0,
     missEnter: 0,
@@ -35,12 +35,21 @@ export default new Vuex.Store({
     initMondai(state, init_param) {
       state.inputStrings = _.shuffle(init_param.mondai_list)
       state.inputStringsBase = state.inputStrings.concat()
+      state.selected.country = init_param.country
       state.selected.category = init_param.category
       state.selected.page = init_param.page
     },
+    addMondai(state, add_param) {
+      state.inputStrings = state.inputStrings.concat(_.shuffle(add_param.mondai_list))
+      state.inputStringsBase = state.inputStrings.concat()
+      state.selected.category = add_param.category
+    },
+    setPageNum(state, page) {
+      state.selected.page = page
+    },
     choice(state) {
-      let mondai = state.inputStrings.pop()
-      if (!mondai) {
+      let mondai = state.inputStrings.shift()
+      if (state.successStage+1 == state.selected.page) {
         state.isGameClear = true
         state.endTime = Date.now()
         return
@@ -140,6 +149,7 @@ export default new Vuex.Store({
     },
     resetAll(state) {
       state.isGameClear = false
+      state.isGameStart = false
       state.successStage = 0
       state.typeSuccessCount = 0
       state.onEnter = 0

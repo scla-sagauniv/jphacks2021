@@ -3,23 +3,18 @@
         <div id="content">
             <fuwa-moji v-for="(char_map, i) in tuto_title" :key="i" :char_map="char_map" :index="i" id="fuwa_title"></fuwa-moji>
             <ul>
-                <li>1. 問題のcategoryと問題数を選ぼう！</li>
-                <li>2. Start Gameボタンをclick!!!しよう！</li>
-                <li>3. Spaceを押してTyping start!!!だ！</li>
-                <li>・問題文は一定時間で消えてしまうから，急いで入力してenterをpush!!!だ！</li>
-                <li>・問題文はenterをpush!!!すると，またしばらく表示されるぞ！</li>
-                <li>4. 間違いが少ないと高得点が獲得できるぞ！！</li>
-                <li>5. Twitterボタンをclick!!!して自分の実力を友達に見せびらかそう！！</li>
+                <li>⚠️問題文は一定時間で隠れてしまいます⚠️</li>
+                <li>⚠️エンターキーを押すと再度表示させることができます⚠️</li>
+                <li>⚠️打ち間違いを減らして高得点を目指しましょう！⚠️</li><br>
+                <li>🐤<b>スコア画面のTwitterボタンをクリックして結果をシェアできます</b>🐤</li>
             </ul>
-            <p>以上だ！！</p>
-            <p>======================!!!!注意!!!!======================</p>
             <span>半角スペースは</span>
             <fuwa-moji :char_map='{word: " ", ruby: undefined}' :index=1 id="fuwa_m"></fuwa-moji>
             <span>全角スペースは</span>
             <fuwa-moji :char_map='{word: "　", ruby: undefined}' :index=1 id="fuwa_m"></fuwa-moji>
             <span>と表示されるので注意しよう！</span>
             <br>
-            <b-button v-on:click="close" id="close" variant="primary">close</b-button>
+            <b-button v-on:click="close" id="close" variant="primary">Close</b-button>
         </div>
     </div>
 </template>
@@ -58,8 +53,13 @@ p{
 
 ul{
     list-style: none;
-    text-align: left;
-    margin-left: 0px;
+    text-align: center;
+    margin-left: -40px;
+    margin-top:10px;
+}
+
+li{
+ margin-bottom:5px;
 }
 
 #fuwa_m{
