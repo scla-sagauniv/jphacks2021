@@ -1,6 +1,6 @@
 <template>
     <div class="gameDisplay">
-        <h1>Game End</h1>
+        <h1 class="end-title">Game End</h1>
         <b-container>
           <b-row align-v="center">
             <b-col cols="8">
@@ -165,6 +165,9 @@
     h1 {
         margin-top: 70px;
         font-size: 60px;
+    }
+    .end-title {
+      width: 1000px
     }
     .title-list {
       // IE, Edge 対応
