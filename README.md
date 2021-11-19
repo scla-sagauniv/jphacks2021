@@ -1,4 +1,4 @@
-# サンプル（プロダクト名）
+# N-Typing(ニュースタイピング)
 
 [![IMAGE ALT TEXT HERE](home.png)](https://www.youtube.com/watch?v=LUPQFB4QyVo)
 
@@ -26,8 +26,8 @@ https://news-typing-scla.herokuapp.com/
 ## 開発技術
 ### 活用した技術
 #### API・データ
-* gooラボAPI:ひらがな化API
-* NewsAPI
+* [NewsAPI](https://newsapi.org/)
+* YahooAPI:[ルビ振り](https://developer.yahoo.co.jp/webapi/jlp/furigana/v2/furigana.html)
 
 #### フレームワーク・ライブラリ・モジュール
 * vue
@@ -43,4 +43,3 @@ https://news-typing-scla.herokuapp.com/
 #### ハッカソンで開発した独自機能・技術
 * GOを利用したAPIサーバ
 * ニュースを所得して成形するAPI
-* 特に力を入れた部分をファイルリンク、またはcommit_idを記載してください。
