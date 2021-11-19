@@ -66,7 +66,6 @@
         }
     },
     created() {
-      this.gameinit()
       let title_str = 'N-Typing'.split('')
       for (let i = 0; i < title_str.length; i++) {
         this.title.push({word: title_str[i], ruby: undefined})
@@ -85,6 +84,7 @@
         this.tutorial_page = false;
       },
       gameStart() {
+        this.gameinit()
         this.$emit('game-start')
       },
     }
