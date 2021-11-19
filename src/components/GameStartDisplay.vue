@@ -4,6 +4,7 @@
         <h1 class="game-title">
             <fuwa-moji v-for="(char_map, i) in title" :key="i" :char_map="char_map" :index="i"></fuwa-moji>
         </h1>
+        <br>
         <h3 class="mt-3">国</h3>
         <b-container>
           <b-row>
