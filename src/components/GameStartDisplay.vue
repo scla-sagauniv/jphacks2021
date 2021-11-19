@@ -70,6 +70,10 @@
       for (let i = 0; i < title_str.length; i++) {
         this.title.push({word: title_str[i], ruby: undefined})
       }
+
+      if(this.first_tutorial()){
+        this.tutorial_page = true;
+      }
     },
     methods: {
       gameinit() {
@@ -82,6 +86,15 @@
       },
       close_tutorial(){
         this.tutorial_page = false;
+      },
+      first_tutorial(){
+        const name = "visit";
+        const key_l = true;
+        if(!localStorage.getItem(name)){
+          localStorage.setItem(name, key_l);
+          return true;
+        }
+        return false;
       },
       gameStart() {
         this.gameinit()
