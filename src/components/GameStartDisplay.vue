@@ -4,6 +4,16 @@
         <h1 class="game-title">
             <fuwa-moji v-for="(char_map, i) in title" :key="i" :char_map="char_map" :index="i"></fuwa-moji>
         </h1>
+        <h3 class="mt-3">国</h3>
+        <b-container>
+          <b-row>
+            <b-col col lg="4"></b-col>
+            <b-col>
+              <b-form-select class="text-center" v-model="country" :options="countrySelects"></b-form-select>
+            </b-col>
+            <b-col col lg="4"></b-col>
+          </b-row>
+        </b-container>
         <br>
         <h3>カテゴリー</h3>
         <b-container>
@@ -44,6 +54,11 @@
     data() {
         return {
           title: [],
+          country: 'jp',
+          countrySelects: [
+            { value: 'jp', text: '日本' },
+            { value: 'us', text: 'アメリカ' },
+          ],
           categorySelect: 'general',
           categorySelects: [
             { value: 'general', text: '一般' },
@@ -72,9 +87,10 @@
       }
     },
     methods: {
-      gameinit() {
-        getNews(this.pageNumber, this.categorySelect).then((res) => {
-          this.$store.commit("initMondai", {mondai_list: res, category: this.categorySelect, page: this.pageNumber})
+      gameStart() {
+        getNews(this.country, this.pageNumber, this.categorySelect).then((res) => {
+          this.$store.commit("initMondai", {mondai_list: res, country: this.country, category: this.categorySelect, page: this.pageNumber})
+          this.$emit('game-start')
         })
       },
       open_tutorial() {
@@ -82,10 +98,6 @@
       },
       close_tutorial(){
         this.tutorial_page = false;
-      },
-      gameStart() {
-        this.gameinit()
-        this.$emit('game-start')
       },
     }
   }
