@@ -47,7 +47,6 @@
         this.createMondai();
       },
       onEnter() {
-        console.log("fade")
         this.fade_f = !this.fade_f;
         this.$nextTick(function() {
           this.fade_f = !this.fade_f;
