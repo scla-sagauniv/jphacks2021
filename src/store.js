@@ -141,6 +141,7 @@ export default new Vuex.Store({
     },
     resetAll(state) {
       state.isGameClear = false
+      state.isGameStart = false
       state.successStage = 0
       state.typeSuccessCount = 0
       state.onEnter = 0
