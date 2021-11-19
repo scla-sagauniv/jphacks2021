@@ -1,11 +1,11 @@
 <template>
     <transition appear v-if="$store.state.isGameStart" name="fade">
         <div v-if="fade_f" class="disp-fuwa">
-            <fuwa-moji v-for="(char_map, i) in string" :key="i" :char_map="char_map" :index="i"></fuwa-moji>
+            <fuwa-moji v-for="(char_map, i) in displayString" :key="i" :char_map="char_map" :index="i"></fuwa-moji>
         </div>
     </transition>
     <div v-else>
-        <fuwa-moji v-for="(char_map, i) in string" :key="i" :char_map="char_map" :index="i"></fuwa-moji>
+        <fuwa-moji v-for="(char_map, i) in displayString" :key="i" :char_map="char_map" :index="i"></fuwa-moji>
     </div>
 </template>
 
@@ -24,18 +24,26 @@
       }
     },
     computed: {
-      string() {
+      displayString() {
         return this.$store.state.displayString.slice(0, 12)
       },
       type_count() {
         return this.$store.state.type_count
+      },
+      onEnter() {
+        return this.$store.state.onEnter
       }
     },
     watch: {
       type_count() {
         this.right = this.$store.state.type_size * this.$store.state.type_count;
       },
-      string() {
+      onEnter() {
+        this.fade()
+      }
+    },
+    methods: {
+      fade() {
         this.fade_f = !this.fade_f;
         this.$nextTick(function() {
           this.fade_f = !this.fade_f;
