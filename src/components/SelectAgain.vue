@@ -2,7 +2,8 @@
     <div id="overlay">
         <div id="content">
             <div class="msg">
-                ※ニュースが十分な量ありませんでした
+                ※ニュースの数が足りませんでした <br>
+                （現在{{$store.state.inputStrings.length}}件）
             </div>
             <div>
                 <b-form-checkbox-group
