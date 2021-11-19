@@ -102,7 +102,7 @@
             this.select_page = true
           }
           else {
-            this.$emit('game-start')
+            this.$emit('game_start')
           }
         })
       },
@@ -120,7 +120,7 @@
         }, 1000) 
         }
         else {
-          this.$emit('game-start')
+          this.$emit('game_start')
         }
       },
       first_tutorial(){

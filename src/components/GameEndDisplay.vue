@@ -25,38 +25,7 @@
             </b-col>
           </b-row>
         </b-container>
-        <h3>国</h3>
-        <b-container>
-          <b-row>
-            <b-col col lg="4"></b-col>
-            <b-col>
-              <b-form-select class="text-center" v-model="country" :options="countrySelects"></b-form-select>
-            </b-col>
-            <b-col col lg="4"></b-col>
-          </b-row>
-        </b-container>
-        <h3 class="mt-3">カテゴリー</h3>
-        <b-container>
-          <b-row>
-            <b-col col lg="4"></b-col>
-            <b-col>
-              <b-form-select class="text-center" cols="8" md="auto" v-model="categorySelect" :options="categorySelects"></b-form-select>
-            </b-col>
-            <b-col col lg="4"></b-col>
-          </b-row>
-        </b-container>
-        <h3 class="mt-3">問題数</h3>
-        <b-container>
-          <b-row>
-            <b-col col lg="4"></b-col>
-            <b-col>
-              <b-form-select class="text-center" v-model="pageNumber" :options="pageNumbers"></b-form-select>
-            </b-col>
-            <b-col col lg="4"></b-col>
-          </b-row>
-        </b-container>
-        <br>
-        <b-button variant="primary" @click="gameStart">Retry</b-button>
+        <b-button variant="primary" @click="gameStart" size="lg" class="retry">Retry</b-button>
         <br>
         <a v-bind:href="href_title" target="_blank" rel="noopener noreferrer" @click="shareTwitter" class="twitter-share-button" data-show-count="false">
         <img src="../assets/Twitter social icons - rounded square - blue.svg">
@@ -128,9 +97,9 @@
     methods: {
       gameStart() {
         getNews(this.country, this.pageNumber, this.categorySelect).then((res) => {
-          this.$store.commit("initMondai", {mondai_list: res, category: this.categorySelect, page: this.pageNumber})
           this.$store.commit("resetAll")
-          this.$emit('game-start')
+          this.$store.commit("initMondai", {mondai_list: res, category: this.categorySelect, page: this.pageNumber})
+          this.$emit('show_title')
         })
       },
       shareTwitter() {
@@ -223,5 +192,8 @@
     }
     .-result {
         color: red
+    }
+    .retry {
+      margin-top: 100px
     }
 </style>

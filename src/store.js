@@ -49,7 +49,6 @@ export default new Vuex.Store({
     },
     choice(state) {
       let mondai = state.inputStrings.shift()
-      console.log(state.successStage+1, state.selected.page)
       if (state.successStage+1 == state.selected.page) {
         state.isGameClear = true
         state.endTime = Date.now()
